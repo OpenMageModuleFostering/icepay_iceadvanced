@@ -2,7 +2,8 @@
 
 /**
  *  ICEPAY Advanced - Observer to save admin paymentmethods and save checkout payment
- *  @version 1.0.0
+ *  @version 1.2.0
+ *  @author Wouter van Tilburg
  *  @author Olaf Abbenhuis
  *  @copyright ICEPAY <www.icepay.com>
  *  
@@ -13,7 +14,8 @@
  *  charged in accordance with the standard ICEPAY tariffs.
  * 
  */
-class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Container {
+class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Container
+{
 
     public $_currencyArr = array();
     public $_countryArr = array();
@@ -25,103 +27,111 @@ class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Containe
     private $_advancedSQL = null;
     private $_coreSQL = null;
 
-    private function validateStreetAddress($streetAddress)
+    /**
+     * Checks if an Icepay quote id is set, if so make the checkout session active
+     * Note: This is done so cancelled orders no longer have an empty card upon returning
+     * 
+     * @param Varien_Event_Observer $observer
+     * 
+     * @since 1.2.0
+     * @author Wouter van Tilburg
+     * @return \Varien_Event_Observer
+     */
+    public function custom_quote_process(Varien_Event_Observer $observer)
     {
-        $pattern = '#^(.+\D+){1} ([0-9]{1,})\s?([\s\/]?[0-9]{0,}?[\s\S]{0,}?)?$#i';
+        $session = Mage::getSingleton('core/session');
+        $quoteID = $session->getData('ic_quoteid');
 
-        $aMatch = array();
+        if (!is_null($quoteID)) {
+            $quoteDate = $session->getData('ic_quotedate');
 
-        if (preg_match($pattern, $streetAddress, $aMatch)) {
-            $street = utf8_decode($aMatch[1]);
-            $houseNumber = utf8_decode($aMatch[2]);
+            $diff = abs(strtotime(date("Y-m-d H:i:s")) - strtotime($quoteDate));
 
-            if (empty($street) || empty($houseNumber))
-                return false;
-        } else {
-            return false;
+            if ($diff < 360) {
+                $observer['checkout_session']->setQuoteId($quoteID);
+                $observer['checkout_session']->setLoadInactive(true);
+            }
         }
 
-        return true;
+        return $observer;
     }
 
-    public function sales_quote_collect_totals_after(Varien_Event_Observer $observer)
+    /**
+     * sales_order_place_before
+     * 
+     * @param Varien_Event_Observer $observer
+     * 
+     * @since 1.2.0
+     * @author Wouter van Tilburg
+     * @return \Icepay_IceAdvanced_Model_Observer
+     */
+    public function sales_order_place_before(Varien_Event_Observer $observer)
     {
-        $paymentMethod = Mage::app()->getFrontController()->getRequest()->getParam('payment');
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        
+        $paymentMethodCode = $quote->getPayment()->getMethodInstance()->getCode();
+        $paymentMethodTitle = $quote->getPayment()->getMethodInstance()->getTitle();
 
-        if (!isset($paymentMethod))
+        if (false === strpos($paymentMethodCode, 'icepayadv_'))
             return;
 
-        try {
-            $paymentMethodCode = $observer->getEvent()->getQuote()->getPayment()->getMethodInstance()->getCode();
-            $paymentMethodTitle = $observer->getEvent()->getQuote()->getPayment()->getMethodInstance()->getTitle();
-        } catch (Exception $e) {
-            return;
-        }
+        if (strtoupper($paymentMethodTitle) == 'AFTERPAY')
+            $this->initAfterpayValidation($quote);
 
-        if (substr($paymentMethodCode, 0, 10) != "icepayadv_")
-            return;
+        return $this;
+    }
 
-        if (strtoupper($paymentMethodTitle) != 'AFTERPAY')
-            return;
+    /**
+     * Validate additional information (Only for Afterpay)
+     * 
+     * @param Object $quote
+     * 
+     * @since 1.2.0
+     * @author Wouter van Tilburg
+     * @throws Mage_Payment_Model_Info_Exception
+     */
+    public function initAfterpayValidation($observer)
+    {
+        $billingAddress = $observer->getBillingAddress();
+        $shippingAddress = $observer->getShippingAddress();
 
-        $message = false;
+        $billingCountry = $billingAddress->getCountry();
 
-        $postCode = str_replace(' ', '', Mage::getSingleton('checkout/session')->getQuote()->getBillingAddress()->getPostcode());
+        $errorMessage = false;
 
-        switch (Mage::getSingleton('checkout/session')->getQuote()->getBillingAddress()->getCountry()) {
-            case 'NL':
-                if (!preg_match('/^[1-9]{1}[0-9]{3}[A-Z]{2}$/', $postCode))
-                    $message = "Your postal code is incorrect, must be in 1111AA or 1111 AA format and cannot start with a 0.";
-                break;
-            case 'BE':
-                if (!preg_match('/^[1-9]{4}$/', $postCode))
-                    $message = "Your postal code is incorrect, must be in 1111 format.";
-                break;
-            case 'DE':
-                if (!preg_match('/^[1-9]{5}$/', $postCode))
-                    $message = "Your postal code is incorrect, must be in 11111 format.";
-                break;
-        }
+        // Validate postcode
+        if (!Mage::Helper('iceadvanced')->validatePostCode($billingCountry, $billingAddress->getPostcode()))
+            $errorMessage = Mage::helper('iceadvanced')->__('It seems your billing address is incorrect, please confirm the postal code.');
 
-        $phoneNumber = Mage::getSingleton('checkout/session')->getQuote()->getBillingAddress()->getTelephone();
+        // Validate phonenumber
+        if (!Mage::Helper('iceadvanced')->validatePhonenumber($billingCountry, $billingAddress->getTelephone()))
+            $errorMessage = Mage::helper('iceadvanced')->__('It seems your billing address is incorrect, please confirm the phonenumber.');
 
-        switch (Mage::getSingleton('checkout/session')->getQuote()->getBillingAddress()->getCountry()) {
-            case 'NL':
-                if (!preg_match('/^\(?\+?\d{1,3}\)?\s?-?\s?[\d\s]*$/', $phoneNumber) OR strlen($phoneNumber) < 10) {
-                    $message = "Your phonenumber is incorrect.";
-                }
-                break;
-        }
+        // Validate billing streetaddress
+        if (!Mage::helper('iceadvanced')->validateStreetAddress($billingAddress->getStreet()))
+            $errorMessage = Mage::helper('iceadvanced')->__('It seems your billing address is incorrect, please confirm the street and housenumber.');
 
-        $billingStreetAddress = implode(' ', Mage::getSingleton('checkout/session')->getQuote()->getBillingAddress()->getStreet());
-        if (!$this->validateStreetAddress($billingStreetAddress)) {
-            $message = "Billing address incorrect.";
-        }
+        // Validate shipping streetaddress
+        if (!Mage::helper('iceadvanced')->validateStreetAddress($shippingAddress->getStreet()))
+            $errorMessage = Mage::helper('iceadvanced')->__('It seems your shipping address is incorrect, please confirm the street and housenumber.');
 
-        $shippingStreetAddress = implode(' ', Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getStreet());
-        if (!$this->validateStreetAddress($shippingStreetAddress)) {
-            $message = "Shipping address incorrect.";
-        }
-
-        if ($message) {
-            Mage::getSingleton('checkout/session')->addError($message);
-
+        if ($errorMessage) {
+            Mage::getSingleton('checkout/session')->addError($errorMessage);
             Mage::app()->getResponse()->setRedirect(Mage::getUrl('checkout/cart'));
+            session_write_close();
             Mage::app()->getResponse()->sendResponse();
             exit();
         }
-
-        return;
     }
 
-    /* Save the payment */
+    /* Save order */
 
     public function sales_order_payment_place_end(Varien_Event_Observer $observer)
     {
         $payment = $observer->getPayment();
-        $pmName = $payment->getMethodInstance()->getCode();
+        $paymentMethodCode = $payment->getMethodInstance()->getCode();
 
-        if (substr($pmName, 0, 10) != "icepayadv_")
+        if (strpos($paymentMethodCode, 'icepayadv_') === false)
             return;
 
         if ($this->coreSQL()->isActive("iceadvanced"))
@@ -142,8 +152,7 @@ class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Containe
             return;
         if ($data->getData("scope") == "default" || $data->getData("scope") == "stores") {
             $storeScope = $data->getData("scope_id");
-        }
-        else
+        } else
             return;
         $this->advSQL()->setScope($storeScope);
         $this->advSQL()->clearConfig();
@@ -237,8 +246,7 @@ class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Containe
         // Only allow payment and issuer data at default and store level
         if ($data->getData("scope") == "default" || $data->getData("scope") == "stores") {
             $storeScope = $data->getData("scope_id");
-        }
-        else
+        } else
             return;
         $this->advSQL()->setScope($storeScope);
 
@@ -246,7 +254,7 @@ class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Containe
         if ($this->isIssuer()) {
 
             $issuerListArr = array();
-            foreach ($this->getIssuers() as $issuer) {                
+            foreach ($this->getIssuers() as $issuer) {
                 if (!in_array($issuer->IssuerKeyword, Mage::helper("iceadvanced")->filteredPaymentMethodIssuers))
                     array_push($issuerListArr, $issuer->IssuerKeyword);
             }
@@ -301,5 +309,3 @@ class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Containe
     }
 
 }
-
-?>

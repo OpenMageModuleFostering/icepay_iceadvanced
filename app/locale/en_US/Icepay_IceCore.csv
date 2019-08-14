@@ -25,8 +25,8 @@
 "This configuration section is for implementing ICEPAY, please do not change these settings after saving.","This configuration section is for linking to your <a href="https://www.icepay.com/EN/Login?origin=magento_admin" target="blank">ICEPAY Merchant website</a>, please do not change these settings after saving."
 "Configuration Information","Configuration Information"
 "This is an overview of installed ICEPAY modules",""
-"Have Magento create the invoice automatically when payment has been completed.",""
-
+"Have Magento create the invoice automatically when payment has been completed.","Have Magento create the invoice automatically when payment has been completed."
+"Have Magento refund the ICEPAY transaction online when creating a credit memo.", "Have Magento refund the ICEPAY transaction online when creating a credit memo."
 /*notifications*/
 "Merchant ID is properly configured","Merchant ID is properly configured"
 "Merchant ID not set for this storeview","Merchant ID not set for this storeview"

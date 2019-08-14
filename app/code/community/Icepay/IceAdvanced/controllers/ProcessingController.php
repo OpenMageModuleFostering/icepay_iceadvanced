@@ -25,7 +25,7 @@ class Icepay_IceAdvanced_ProcessingController extends Mage_Core_Controller_Front
     {
         $pay = Mage::getModel('iceadvanced/pay');
         $result = $pay->getCheckoutResult();
-        
+
         if (!is_array($result)) {
             Mage::getSingleton('checkout/session')->setErrorMessage(sprintf($this->__("The payment provider has returned the following error message: %s"), $result));
             parent::_redirect('checkout/onepage/failure');

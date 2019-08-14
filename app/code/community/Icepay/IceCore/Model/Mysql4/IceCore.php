@@ -78,7 +78,7 @@ class Icepay_IceCore_Model_Mysql4_IceCore extends Mage_Core_Model_Mysql4_Abstrac
         $select = $conn
                 ->select()
                 ->from($this->getTable('core/config_data'), array('scope', 'scope_id', 'path', 'value'))
-                ->where(new Zend_Db_Expr("path LIKE 'ice%module/" . $unique . "'"))
+                ->where(new Zend_Db_Expr("path LIKE 'iceadvanced/module/" . $unique . "'"))
                 ->order('path');
         $data = $conn->fetchAll($select);
 

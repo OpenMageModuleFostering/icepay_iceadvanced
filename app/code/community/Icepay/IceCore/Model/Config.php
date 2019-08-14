@@ -22,6 +22,7 @@ class Icepay_IceCore_Model_Config
 	const SECRETCODE 	= "icecore/settings/merchant_secret";
 	const TRANSDESCR 	= "icecore/core_options/transaction_descr";
 	const AUTOINVOICE 	= "icecore/core_options/order_autoinvoice";
+        const AUTOREFUND        = "icecore/core_options/order_autorefund";
 
         const STATUS_NEW            = "NEW";
         const STATUS_OPEN           = "OPEN";

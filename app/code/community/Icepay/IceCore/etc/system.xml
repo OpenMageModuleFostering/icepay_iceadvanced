@@ -144,6 +144,16 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
+                        <order_autorefund translate="label">
+                            <label>Auto refund</label>
+                            <comment>Have Magento refund the ICEPAY transaction online when creating a credit memo.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>                           
+                        </order_autorefund>
                         <order_autoinvoice translate="label">
                             <label>Auto invoice</label>
                             <comment>Have Magento create the invoice automatically when payment has been completed.</comment>
@@ -159,7 +169,7 @@
                             <comment>Some payment methods allow customized descriptions on the transaction statement. If left empty the Magento Order ID is used. (Max 100 char.)</comment>
                             <frontend_type>text</frontend_type>
                             <validate>validate-length maximum-length-99</validate>
-                            <sort_order>40</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -168,7 +178,7 @@
                             <label>(Optional) Custom IP Range for IP Check for Postbackk</label>
                             <comment>For example a proxy: 1.222.333.444-100.222.333.444 For multiple ranges use a , seperator: 2.2.2.2-5.5.5.5,8.8.8.8-9.9.9.9</comment>
                             <frontend_type>text</frontend_type>
-                            <sort_order>60</sort_order>
+                            <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>

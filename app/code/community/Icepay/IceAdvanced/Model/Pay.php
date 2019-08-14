@@ -13,13 +13,18 @@
  *  charged in accordance with the standard ICEPAY tariffs.
  * 
  */
-class Icepay_IceAdvanced_Model_Pay extends Mage_Payment_Model_Method_Abstract {
+class Icepay_IceAdvanced_Model_Pay extends Mage_Payment_Model_Method_Abstract
+{
 
     private $sqlModel;
- 
+    private $ic_order;
+
     public function __construct()
     {
         $this->sqlModel = Mage::getModel('icecore/mysql4_iceCore');
+        $this->ic_order = Mage::getModel('iceadvanced/order');
+
+        parent::__construct();
     }
 
     public function getCheckoutResult()
@@ -101,39 +106,27 @@ class Icepay_IceAdvanced_Model_Pay extends Mage_Payment_Model_Method_Abstract {
 
                 $ic_order->setShippingAddress($shippingAddress);
 
-                // Add item specification for Afterpay
-                $orderItems = $order->getItemsCollection();
 
-                foreach ($orderItems as $item) {
-                    $itemData = $item->getData();
-
-                    if ($itemData['price'] == 0)
+                foreach ($order->getAllItems() as $orderItem) {
+                    if (empty($orderItem) || $orderItem->hasParentItemId()) {
                         continue;
+                    }
+                    
+                    $itemData = $orderItem->getData();
 
-                    $product = Mage::getModel('catalog/product')->load($itemData['product_id']);
-                    $productData = $product->getData();
-
-                    $itemData['price'] * $itemData['tax_percent'];
-
-                    $itemData['price_incl_tax'] = number_format($itemData['price_incl_tax'], 2);
-
-                    if ($productData['tax_class_id'] == '0')
-                        $itemData['tax_percent'] = -1;
-
-
-                    // Add the products
-                    $itemData['description'] = (isset($itemData['description'])) ? $itemData['description'] : '';
+                    //for compatibility reasons, $orderItem->getProduct() was not used
+                    $product = Mage::getModel('catalog/product')->loadByAttribute('sku', $orderItem->getSku());
 
                     $ic_product = $ic_order->createProduct()
-                            ->setProductID($itemData['item_id'])
-                            ->setProductName($itemData['name'])
-                            ->setDescription($itemData['description'])
-                            ->setQuantity(round($itemData['qty_ordered']))
-                            ->setUnitPrice($itemData['price_incl_tax'] * 100)
+                            ->setProductID($orderItem->getSku())
+                            ->setProductName($product->getName())
+                            ->setDescription($product->getName())
+                            ->setQuantity((int) $orderItem->getQtyOrdered())
+                            ->setUnitPrice(round(($orderItem->getBasePrice() + bcdiv($orderItem->getBaseTaxAmount(), $orderItem->getQtyOrdered(), 2) + bcdiv($orderItem->getBaseHiddenTaxAmount(), $orderItem->getQtyOrdered(), 2)) * 100, 0))
                             ->setVATCategory($ic_order->getCategoryForPercentage($itemData['tax_percent']));
 
                     $ic_order->addproduct($ic_product);
-                }
+                }       
 
                 $orderData = $order->getData();
 
@@ -151,6 +144,11 @@ class Icepay_IceAdvanced_Model_Pay extends Mage_Payment_Model_Method_Abstract {
                     $ic_order->setShippingCosts($shippingCosts, $shippingTax);
                 } else {
                     $ic_order->setShippingCosts(0, -1);
+                }
+
+                if (Mage::helper('icecore')->isModuleInstalled('MageWorx_MultiFees')) {
+                    $multiFeesExtension = Mage::getModel('iceadvanced/extensions_Mageworx_MultiFees');
+                    $ic_order = $multiFeesExtension->addPrice(unserialize($order->getDetailsMultifees()), $ic_order);
                 }
 
                 if (Mage::helper('icecore')->isModuleInstalled('MW_GiftWrap')) {

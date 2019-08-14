@@ -30,3 +30,9 @@
 "Please select an issuer","Please select an issuer"
 "Please select a country","Please select a country"
 
+/*frontend-errors*/
+"It seems your billing address is incorrect, please confirm the postal code.", "It seems your billing address is incorrect, please confirm the postal code."
+"It seems your billing address is incorrect, please confirm the phonenumber.", "It seems your billing address is incorrect, please confirm the phonenumber."
+"It seems your billing address is incorrect, please confirm the street and housenumber.", "It seems your billing address is incorrect, please confirm the street and housenumber."
+"It seems your shipping address is incorrect, please confirm the street and housenumber.", "It seems your shipping address is incorrect, please confirm the street and housenumber."
+

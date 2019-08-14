@@ -2,8 +2,9 @@
 
 /**
  *  ICEPAY Advanced - Helper class
- *  @version 1.0.0
+ *  @version 1.1.0
  *  @author Olaf Abbenhuis
+ *  @author Wouter van Tilburg
  *  @copyright ICEPAY <www.icepay.com>
  *  
  *  Disclaimer:
@@ -13,15 +14,16 @@
  *  charged in accordance with the standard ICEPAY tariffs.
  * 
  */
-class Icepay_IceAdvanced_Helper_Data extends Mage_Core_Helper_Abstract {
+class Icepay_IceAdvanced_Helper_Data extends Mage_Core_Helper_Abstract
+{
     /* Install values */
 
     public $title = 'Advanced';
-    public $version = '1.1.9';
+    public $version = '1.2.0';
     public $id = 'ADV';
     public $fingerprint = '7f4de76ecbf7d847caeba64c42938a6a05821c4f';
     public $compatibility_oldest_version = '1.5.0.0';
-    public $compatibility_latest_version = '1.7.0.2';
+    public $compatibility_latest_version = '1.8.0.0';
     public $section = 'iceadvanced';
     public $serial_required = '0';
     public $filteredPaymentmethods = array('SMS', 'PHONE');
@@ -30,7 +32,7 @@ class Icepay_IceAdvanced_Helper_Data extends Mage_Core_Helper_Abstract {
     public function doChecks()
     {
         $lines = array();
-        
+
         /* Check SOAP */
         $check = Mage::helper("icecore")->hasSOAP();
         array_push($lines, array(
@@ -133,6 +135,102 @@ class Icepay_IceAdvanced_Helper_Data extends Mage_Core_Helper_Abstract {
     {
         $store = Mage::helper('icecore')->getStoreScopeID();
         return Mage::helper('icecore')->getConfigForStore($store, $val);
+    }
+
+    /**
+     * Remove all whitespace from a string
+     * 
+     * @param string $string
+     * 
+     * @author Wouter van Tilburg
+     * @since 1.1.0
+     * @return string
+     */
+    private function removeWhitespace($string)
+    {
+        return str_replace(' ', '', $string);
+    }
+
+    /**
+     * Validate's the postcode based on country
+     * 
+     * @param string $country
+     * @param string $postCode
+     * 
+     * @author Wouter van Tilburg
+     * @since 1.1.0
+     * @throws Mage_Payment_Model_Info_Exception
+     */
+    public function validatePostCode($country, $postCode)
+    {
+        $postCode = $this->removeWhitespace($postCode);
+
+        switch ($country) {
+            case 'NL':
+                if (!preg_match('/^[1-9]{1}[0-9]{3}[A-Z]{2}$/', $postCode))
+                    return false;
+                break;
+            case 'BE':
+                if (!preg_match('/^[1-9]{4}$/', $postCode))
+                    throw new Mage_Payment_Model_Info_Exception('Your postal code is incorrect, must be in 1111 format.');
+                break;
+            case 'DE':
+                if (!preg_match('/^[1-9]{5}$/', $postCode))
+                    throw new Mage_Payment_Model_Info_Exception('Your postal code is incorrect, must be in 11111 format.');
+                break;
+        }
+        
+        return true;
+    }
+
+    /**
+     * Validate's the phonenumber based on country
+     * 
+     * @param type $country
+     * @param type $phoneNumber
+     * 
+     * @author Wouter van Tilburg
+     * @since 1.1.0
+     * @throws Mage_Payment_Model_Info_Exception
+     */
+    public function validatePhonenumber($country, $phoneNumber)
+    {
+        switch ($country) {
+            case 'NL':
+                if (!preg_match('/^\(?\+?\d{1,3}\)?\s?-?\s?[\d\s]*$/', $phoneNumber) OR strlen($phoneNumber) < 10)
+                    return false;
+                break;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validate's the street address (Afterpay)
+     * 
+     * @param string $streetAddress
+     * 
+     * @author Wouter van Tilburg
+     * @since 1.1.0
+     * @return boolean
+     */
+    public function validateStreetAddress($streetAddress)
+    {
+        $streetAddress = implode(' ', $streetAddress);
+
+        $pattern = '#^(.+\D+){1} ([0-9]{1,})\s?([\s\/]?[0-9]{0,}?[\s\S]{0,}?)?$#i';
+
+        $aMatch = array();
+
+        if (preg_match($pattern, $streetAddress, $aMatch)) {
+            $street = utf8_decode($aMatch[1]);
+            $houseNumber = utf8_decode($aMatch[2]);
+
+            if (!empty($street) && !empty($houseNumber))
+                return true;
+        }
+
+        return false;
     }
 
 }

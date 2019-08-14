@@ -33,15 +33,24 @@
             </modules>
         </translate>
         <events>
-            <sales_quote_collect_totals_after>
+            <sales_order_place_before>
                 <observers>
                     <iceadvanced>
                         <type>singleton</type>
                         <class>iceadvanced/observer</class>
-                        <method>sales_quote_collect_totals_after</method>
+                        <method>sales_order_place_before</method>
                     </iceadvanced>
                 </observers>
-            </sales_quote_collect_totals_after>
+            </sales_order_place_before>
+            <custom_quote_process>
+                <observers>
+                    <iceadvanced>
+                        <type>singleton</type>
+                        <class>iceadvanced/observer</class>
+                        <method>custom_quote_process</method>
+                    </iceadvanced>
+                </observers>
+            </custom_quote_process>
         </events>
     </frontend>
     

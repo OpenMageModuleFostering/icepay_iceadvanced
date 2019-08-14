@@ -3,7 +3,7 @@
 /**
  *  ICEPAY - Webservice Core Model
  * 
- *  @version 1.0.0
+ *  @version 1.0.1
  *  @author Wouter van Tilburg <wouter@icepay.eu>
  *  @copyright ICEPAY <www.icepay.com>
  *  
@@ -26,6 +26,7 @@ class Icepay_IceCore_Model_Webservice_Core {
      * 
      * @param int $merchantID
      * @param string $secretCode
+     * 
      * @since 1.0.0
      */
     public function init($merchantID, $secretCode)
@@ -37,8 +38,31 @@ class Icepay_IceCore_Model_Webservice_Core {
     }
 
     /**
+     * Return Merchant ID
+     * 
+     * @since 1.0.1
+     * @return string
+     */
+    public function getMerchantID()
+    {
+        return $this->merchantID;
+    }
+
+    /**
+     * Return SecretCode
+     * 
+     * @since 1.0.1
+     * @return string
+     */
+    public function getSecretCode()
+    {
+        return $this->secretCode;
+    }
+
+    /**
      * Return the user IP address
      * 
+     * @since 1.0.0
      * @return string
      */
     protected function getIP()
@@ -49,7 +73,7 @@ class Icepay_IceCore_Model_Webservice_Core {
     /**
      * Return the current timestamp
      * 
-     * @since  1.0.0
+     * @since 1.0.0
      * @return type
      */
     protected function getTimestamp()
@@ -62,6 +86,8 @@ class Icepay_IceCore_Model_Webservice_Core {
      * 
      * @param object $obj
      * @param string $secretCode
+     * 
+     * @since 1.0.0
      * @return string
      */
     protected function generateChecksum($obj = null, $secretCode = null)

@@ -17,15 +17,17 @@
 "URL for Postback/Notify","Postback URL"
 "Auto invoice","Automatische facturatie"
 "Description on transaction statement of customer","Omschrijving op het transactie overzicht van de klant"
-"Please read the core manual","<a href="http://www.icepay.com/downloads/pdf/manuals/magento/icepay-manual-magento-basic.pdf" target="blank" class="btn-manual"></a> <a href="http://www.icepay.nl/webshop-modules/ideal-voor-magento-basic" target="blank" class="btn-movie"></a><BR/><BR/><BR/><span class="manual-comment">Heeft u hulp nodig bij het instellen? Raadpleeg onze handleiding of installatie video.</span>
+"Please read the core manual","<a href='http://www.icepay.com/downloads/pdf/manuals/magento/icepay-manual-magento-basic.pdf' target='blank' class='btn-manual'></a> <a href='http://www.icepay.nl/webshop-modules/ideal-voor-magento-basic" target='blank" class='btn-movie'></a><BR/><BR/><BR/><span class='manual-comment'>Heeft u hulp nodig bij het instellen? Raadpleeg onze handleiding of installatie video.</span>
 
 /*comments*/
 "Step 1.","Stap 1."
 "Step 2.","Stap 2."
-"This configuration section is for implementing ICEPAY, please do not change these settings after saving.","Deze configuratie is voor het koppelen aan uw <a href="https://www.icepay.com/NL/Login?origin=magento_admin" target="blank">ICEPAY Merchant website</a>. Pas deze instellingen niet meer aan nadat alles correct is opgeslagen."
+"This configuration section is for implementing ICEPAY, please do not change these settings after saving.","Deze configuratie is voor het koppelen aan uw <a href='https://www.icepay.com/NL/Login?origin=magento_admin' target='blank'>ICEPAY Merchant website</a>. Pas deze instellingen niet meer aan nadat alles correct is opgeslagen."
 "Configuration Information","Informatie over de configuratie"
 "This is an overview of installed ICEPAY modules",""
-"Have Magento create the invoice automatically when payment has been completed.",""
+"Have Magento create the invoice automatically when payment has been completed.","Have Magento create the invoice automatically when payment has been completed."
+"Have Magento refund the ICEPAY transaction online when creating a credit memo.", "Have Magento refund the ICEPAY transaction online when creating a credit memo."
+
 
 /*notifications*/
 "Merchant ID is properly configured","Merchant ID is goed ingesteld"

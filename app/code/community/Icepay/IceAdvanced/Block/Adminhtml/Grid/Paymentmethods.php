@@ -25,9 +25,9 @@ class Icepay_IceAdvanced_Block_Adminhtml_Grid_PaymentMethods extends Mage_Adminh
     public function __construct()
     {
         $this->_scope = Mage::app()->getStore(Mage::helper("icecore")->getStoreFromRequest())->getId();
-        $this->_ajaxLoadPaymentMethodURL = Mage::helper('adminhtml')->getUrl('icepayadvanced/config/index/paymentmethod/{{pm_code}}', array('_secure' => true, 'store' => $this->_scope, '_store' => Mage::app()->getDefaultStoreView()));
-        $this->_ajaxSavePaymentMethodURL = Mage::helper('adminhtml')->getUrl('icepayadvanced/ajax/save_paymentmethod', array('_secure' => true, 'store' => $this->_scope, '_store' => Mage::app()->getDefaultStoreView()));
-        $this->_ajaxGetPaymentMethodsURL = Mage::helper('adminhtml')->getUrl('icepayadvanced/ajax/get_paymentmethods', array('_secure' => true, 'store' => $this->_scope, '_store' => Mage::app()->getDefaultStoreView()));
+        $this->_ajaxLoadPaymentMethodURL = Mage::helper('adminhtml')->getUrl('icepayadvanced/config/index/paymentmethod/{{pm_code}}', array('_secure' => true));
+        $this->_ajaxSavePaymentMethodURL = Mage::helper('adminhtml')->getUrl('icepayadvanced/ajax/save_paymentmethod', array('_secure' => true));
+        $this->_ajaxGetPaymentMethodsURL = Mage::helper('adminhtml')->getUrl('icepayadvanced/ajax/get_paymentmethods', array('_secure' => true));
 
         $this->setTemplate('icepayadvanced/grid_paymentmethods.phtml');
     }

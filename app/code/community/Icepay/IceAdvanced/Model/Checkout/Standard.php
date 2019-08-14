@@ -2,8 +2,9 @@
 
 /**
  *  ICEPAY Advanced - Main Paymentmethod class
- *  @version 1.0.0
+ *  @version 1.0.2
  *  @author Olaf Abbenhuis
+ *  @author Wouter van Tilburg
  *  @copyright ICEPAY <www.icepay.com>
  *  
  *  Disclaimer:
@@ -49,6 +50,55 @@ class Icepay_IceAdvanced_Model_Checkout_Standard extends Mage_Payment_Model_Meth
         $this->advSQL()->setScope(Mage::app()->getStore()->getID());
         if ((int) $this->advSQL()->countPaymentMethods() == 0)
             $this->advSQL()->setScope(0); //Fallback to default store
+    }
+
+    /**
+     * Request an online refund
+     * 
+     * @param Varien_Object $payment
+     * @param string $amount
+     * 
+     * @since 1.0.2
+     * @return \Icepay_IceAdvanced_Model_Checkout_Standard
+     */
+    public function refund(Varien_Object $payment, $amount)
+    {
+        // Get Magento Order
+        $order = $payment->getOrder();
+
+        // Get StoreId
+        $storeId = $order->getStoreId();
+
+        // Check if Auto Refund is enabled
+        if (!Mage::getStoreConfig(Icepay_IceCore_Model_Config::AUTOREFUND, $storeId))
+            return $this;
+
+        // Fetch ICEPAY merchant settings
+        $merchantID = Mage::getStoreConfig(Icepay_IceCore_Model_Config::MERCHANTID, $storeId);
+        $secretCode = Mage::getStoreConfig(Icepay_IceCore_Model_Config::SECRETCODE, $storeId);
+
+        // Get CurrencyCode
+        $currency = $order->getOrderCurrencyCode();
+
+        // Amount must be in cents
+        $amount = (int) (string) ($amount * 100);
+
+        // Fetch ICEPAY Payment ID
+        $paymentID = $payment->getLastTransId();
+
+        // Setup webservice
+        $webservice = Mage::getModel('Icepay_IceAdvanced_Model_Webservice_Refund');
+        $webservice->init($merchantID, $secretCode);
+
+        // Request refund
+        try {
+            $webservice->requestRefund($paymentID, $amount, $currency);
+        } catch (Exception $e) {
+            Mage::getSingleton('adminhtml/session')->addError("ICEPAY: Refund Failed! {$e->getMessage()}");
+            Mage::helper('icecore')->log("ICEPAY: Refund Failed! {$e->getMessage()}");
+        }
+
+        return $this;
     }
 
     public function initialize($paymentAction, $stateObject)
