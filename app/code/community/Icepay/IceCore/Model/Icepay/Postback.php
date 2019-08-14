@@ -53,6 +53,14 @@ class Icepay_IceCore_Model_Icepay_Postback {
 
         $doSpecialActions = false;
 
+        if ($_vars['Status'] == Icepay_IceCore_Model_Config::STATUS_AUTH) {
+            if (Mage::helper('icecore')->isModuleInstalled('Icepay_AutoCapture')) {
+                if (Mage::Helper('icepay_autocapture')->isAutoCaptureActive($this->storeID)) {
+                    $_vars['Status'] = Icepay_IceCore_Model_Config::STATUS_SUCCESS;
+                }
+            }
+        }
+
         if ($this->canUpdateBasedOnIcepayTable($icepayTransaction['status'], $_vars['Status'])) {
             /* creating the invoice causes major overhead! Status should to be updated and saved first */
             if ($_vars['Status'] == Icepay_IceCore_Model_Config::STATUS_SUCCESS)
@@ -228,28 +236,28 @@ class Icepay_IceCore_Model_Icepay_Postback {
             case Icepay_IceCore_Model_Config::STATUS_NEW:
             case Icepay_IceCore_Model_Config::STATUS_OPEN:
                 return (
-                    $newStatus == Icepay_IceCore_Model_Config::STATUS_SUCCESS || 
-                    $newStatus == Icepay_IceCore_Model_Config::STATUS_ERROR || 
-                    $newStatus == Icepay_IceCore_Model_Config::STATUS_AUTH ||
-                    $newStatus == Icepay_IceCore_Model_Config::STATUS_OPEN
-                    );
+                        $newStatus == Icepay_IceCore_Model_Config::STATUS_SUCCESS ||
+                        $newStatus == Icepay_IceCore_Model_Config::STATUS_ERROR ||
+                        $newStatus == Icepay_IceCore_Model_Config::STATUS_AUTH ||
+                        $newStatus == Icepay_IceCore_Model_Config::STATUS_OPEN
+                        );
                 break;
             case Icepay_IceCore_Model_Config::STATUS_AUTH:
                 return (
-                    $newStatus == Icepay_IceCore_Model_Config::STATUS_SUCCESS || 
-                    $newStatus == Icepay_IceCore_Model_Config::STATUS_ERROR
-                    );
+                        $newStatus == Icepay_IceCore_Model_Config::STATUS_SUCCESS ||
+                        $newStatus == Icepay_IceCore_Model_Config::STATUS_ERROR
+                        );
                 break;
             case Icepay_IceCore_Model_Config::STATUS_ERROR:
                 return (
-                    $newStatus == Icepay_IceCore_Model_Config::STATUS_SUCCESS
-                    );
+                        $newStatus == Icepay_IceCore_Model_Config::STATUS_SUCCESS
+                        );
                 break;
             case Icepay_IceCore_Model_Config::STATUS_SUCCESS:
                 return (
-                    $newStatus == Icepay_IceCore_Model_Config::STATUS_CHARGEBACK ||
-                    $newStatus == Icepay_IceCore_Model_Config::STATUS_REFUND
-                    );                    
+                        $newStatus == Icepay_IceCore_Model_Config::STATUS_CHARGEBACK ||
+                        $newStatus == Icepay_IceCore_Model_Config::STATUS_REFUND
+                        );
                 break;
             default:
                 return false;
@@ -272,18 +280,18 @@ class Icepay_IceCore_Model_Icepay_Postback {
 
     protected function getMagentoState($icepayStatus) {
         switch ($icepayStatus) {
-            case Icepay_IceCore_Model_Config::STATUS_SUCCESS: 
+            case Icepay_IceCore_Model_Config::STATUS_SUCCESS:
                 return Mage_Sales_Model_Order::STATE_PROCESSING;
                 break;
-            case Icepay_IceCore_Model_Config::STATUS_OPEN: 
-            case Icepay_IceCore_Model_config::STATUS_AUTH: 
+            case Icepay_IceCore_Model_Config::STATUS_OPEN:
+            case Icepay_IceCore_Model_config::STATUS_AUTH:
                 return Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
                 break;
-            case Icepay_IceCore_Model_Config::STATUS_ERROR: 
+            case Icepay_IceCore_Model_Config::STATUS_ERROR:
                 return Mage_Sales_Model_Order::STATE_CANCELED;
                 break;
-            case Icepay_IceCore_Model_Config::STATUS_CHARGEBACK: 
-            case Icepay_IceCore_Model_Config::STATUS_REFUND: 
+            case Icepay_IceCore_Model_Config::STATUS_CHARGEBACK:
+            case Icepay_IceCore_Model_Config::STATUS_REFUND:
                 return Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
                 break;
             default:

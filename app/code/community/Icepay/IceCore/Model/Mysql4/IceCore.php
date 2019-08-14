@@ -163,7 +163,7 @@ class Icepay_IceCore_Model_Mysql4_IceCore extends Mage_Core_Model_Mysql4_Abstrac
         $conn = $this->_getReadAdapter();
         $select = $conn
                         ->select()
-                        ->from($this->getTable('icepay_transactions'), array('transaction_data', 'status', 'store_id', 'model', 'order_id'))
+                        ->from($this->getTable('icepay_transactions'), array('transaction_data', 'transaction_id', 'status', 'store_id', 'model', 'order_id'))
                         ->where(new Zend_Db_Expr("order_id = '" . $id . "'"));
         $data = $conn->fetchRow($select);
         return $data;

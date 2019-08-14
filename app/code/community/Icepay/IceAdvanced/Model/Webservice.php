@@ -25,12 +25,15 @@ extends Icepay_IceCore_Model_Icepay_Webservice_Api {
         return $this->webservice($merchantID, $secretCode);
     }
 
-    protected function generateChecksum($obj = null) {
+    protected function generateChecksum($obj = null, $paymentID = null) {
         $arr = array();
 
         array_push($arr, $this->getMerchantID());
         array_push($arr, $this->getSecretCode());
         array_push($arr, $this->getTimeStamp());
+        
+        if ($paymentID)
+            array_push($arr, $paymentID);
 
         return sha1(implode("|", $arr));
     }

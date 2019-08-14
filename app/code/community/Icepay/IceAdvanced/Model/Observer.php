@@ -25,6 +25,27 @@ class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Containe
     private $_advancedSQL = null;
     private $_coreSQL = null;
 
+    private function validateStreetAddress($streetAddress) {
+        $pattern = '#^([a-z0-9 [:punct:]\']*) ([0-9]{1,5})([a-z0-9 \-/]{0,})$#i';
+
+        $aMatch = array();
+        
+        if (preg_match($pattern, $streetAddress, $aMatch)) {
+            array_shift($aMatch);
+
+            $street = array_shift($aMatch);
+            $houseNumber = array_shift($aMatch);
+            
+
+            if (empty($street) || empty($houseNumber))
+                return false;
+        } else {
+            return false;
+        }
+        
+        return true;
+    }
+    
     public function sales_quote_collect_totals_after(Varien_Event_Observer $observer) {        
         $paymentMethod = Mage::app()->getFrontController()->getRequest()->getParam('payment');
         
@@ -72,11 +93,23 @@ class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Containe
                 }
             break;
         }
+        
+        $billingStreetAddress = implode(' ', Mage::getSingleton('checkout/session')->getQuote()->getBillingAddress()->getStreet());
+        if (!$this->validateStreetAddress($billingStreetAddress)) {
+            $message = "Billing address incorrect.";
+        }
+        
+        $shippingStreetAddress = implode(' ', Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getStreet());        
+        if (!$this->validateStreetAddress($shippingStreetAddress)) {
+            $message = "Shipping address incorrect.";
+        }
 
         if ($message) {
             Mage::getSingleton('checkout/session')->addError($message);
-            Mage::app()->getFrontController()->getResponse()->setRedirect('checkout/cart');
-            return false;
+
+            Mage::app()->getResponse()->setRedirect(Mage::getUrl('checkout/cart')); 
+            Mage::app()->getResponse()->sendResponse();
+            exit();
         }
 
         return;

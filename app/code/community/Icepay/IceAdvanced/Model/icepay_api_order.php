@@ -355,7 +355,7 @@ class Icepay_Order_Address {
      */
     public function setStreet($street) {
         if (empty($street))
-            throw new Exception('Streetname must be set and cannot be empty.');
+            throw new Exception('Streetname incorrect.');
 
         $this->street = trim($street);
 

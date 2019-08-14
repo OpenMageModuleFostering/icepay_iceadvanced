@@ -21,7 +21,6 @@ class Icepay_IceCore_Model_Icepay_Webservice_Api {
     protected $url = "https://connect.icepay.com/webservice/icepay.svc?wsdl";
 
     public function webservice($merchantID, $secretCode) {
-
         $this->setMerchantID($merchantID);
         $this->setSecretCode($secretCode);
 
@@ -62,9 +61,11 @@ class Icepay_IceCore_Model_Icepay_Webservice_Api {
     protected function generateChecksum($obj = null) {
         $arr = array();
         array_push($arr, $this->getSecretCode());
+        
         foreach ($obj as $val) {
             array_push($arr, $val);
         }
+
         return sha1(implode("|", $arr));
     }
 
@@ -73,7 +74,6 @@ class Icepay_IceCore_Model_Icepay_Webservice_Api {
     }
 
     // Webservice methods below:
-
     public function doCheckout(
     $amount, $country, $currency, $lang, $descr, $paymentmethod, $issuer, $orderID, $reference, $URLCompleted = "", $URLError = ""
     ) {

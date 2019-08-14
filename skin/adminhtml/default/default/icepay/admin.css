@@ -1,11 +1,10 @@
-
 #row_icecore_settings_step_1,
 #row_icecore_settings_step_2,
 #row_icecore_settings_step_3 {
-	font-weight: bold;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: #333;
+    font-weight: bold;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #333;
 }
 #row_icecore_settings_step_1 .scope-label,
 #row_icecore_settings_step_1 .use-default,
@@ -23,8 +22,8 @@
 #row_icecore_advanced_settings_manual .scope-label,
 #row_icecore_advanced_settings_manual .use-default
 
- {
-	display: none;
+{
+    display: none;
 }
 
 #row_icecore_settings_merchant_url_notify input,
@@ -42,8 +41,8 @@
 #row_icecore_settings_merchant_url_notify label,
 #row_icecore_settings_merchant_id label,
 #row_icecore_settings_merchant_secret label
- {
-	margin-left: 20px;
+{
+    margin-left: 20px;
 }
 
 /* manual links */
@@ -56,79 +55,79 @@
 #row_icecore_settings_manual .btn-movie,
 #row_icecore_advanced_settings_manual .btn-manual,
 #row_icecore_advanced_settings_manual .btn-movie {
-        display: inline-block;
-        background-image: url("images/button-manual.png");
-	background-repeat: no-repeat;
-	background-attachment: scroll;
-	background-position: 0px 0px;
-        width: 150px;
-        height: 50px;
-        float: left;
-        margin-right: 4px;
+    display: inline-block;
+    background-image: url("images/button-manual.png");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 0px 0px;
+    width: 150px;
+    height: 50px;
+    float: left;
+    margin-right: 4px;
 }
 #row_icecore_settings_manual .btn-movie,
 #row_icecore_advanced_settings_manual .btn-movie {
-        background-image: url("images/button-movie.png");
+    background-image: url("images/button-movie.png");
 }
 
 
 .icepay_issuer {
-	font-size: 9px;
-	border-bottom: 1px solid #dadfe0;
-	/*white-space: nowrap;*/
+    font-size: 9px;
+    border-bottom: 1px solid #dadfe0;
+    /*white-space: nowrap;*/
 }
 
 .icepay_url_form {
-	padding: 2px;
-	width: 274px;
-	color:#6f8992;
+    padding: 2px;
+    width: 274px;
+    color:#6f8992;
 }
 
 .icepay_debug {
-	padding: 4px;
-	font-size: 9px;
-	font-weight: bold;
-	border: 1px solid #c8c8c8;
+    padding: 4px;
+    font-size: 9px;
+    font-weight: bold;
+    border: 1px solid #c8c8c8;
 }
 .icepay_debug  .ok{
-	color: #3d6611;
-	background-color: #eff5ea;
-	background-image: url("images/success_msg_icon.gif");
-	background-repeat: no-repeat;
-	background-attachment: scroll;
-	background-position: 0px 0px;
-	padding-left: 20px;
+    color: #3d6611;
+    background-color: #eff5ea;
+    background-image: url("images/success_msg_icon.gif");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 0px 0px;
+    padding-left: 20px;
 }
 .icepay_debug  .err{
-	color: #eb5e00;
-	background-color: #fff9e9;
-	background-image: url("images/error_msg_icon.gif");
-	background-repeat: no-repeat;
-	background-attachment: scroll;
-	background-position: 0px 0px;
-	padding-left: 20px;
+    color: #eb5e00;
+    background-color: #fff9e9;
+    background-image: url("images/error_msg_icon.gif");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 0px 0px;
+    padding-left: 20px;
 }
 
 .icemodule_incompatible {
-	background-color: #fff9e9;
-	font-size: 11px;
-	font-weight: bold;
-	color: #eb5e00;
+    background-color: #fff9e9;
+    font-size: 11px;
+    font-weight: bold;
+    color: #eb5e00;
 }
 
 #icepay_statement table {
-	border: 1px solid #D9DEE4;
+    border: 1px solid #D9DEE4;
 }
 
 #icepay_statement td {
-	background-color: #FAFBFF;
-	font-family: Arial, Verdana, sans-serif;
-	color: #7093a9;
-	font-size: 12px;
-	padding: 8px;
-	text-align: left;
+    background-color: #FAFBFF;
+    font-family: Arial, Verdana, sans-serif;
+    color: #7093a9;
+    font-size: 12px;
+    padding: 8px;
+    text-align: left;
 }
 
 .content-header h3 {
-	background:url(images/icepay-logo.png) no-repeat 0 0; height:0; overflow:hidden; padding:59px 0 0; width:224px;  display:block;
-	}
+    background:url(images/icepay-logo.png) no-repeat 0 0; height:0; padding: 25px 0 0 220px; width: 224px; height: 39px;  display:block;
+}

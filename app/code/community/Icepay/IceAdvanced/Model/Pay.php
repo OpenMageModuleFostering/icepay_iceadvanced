@@ -84,11 +84,16 @@ class Icepay_IceAdvanced_Model_Pay extends Mage_Payment_Model_Method_Abstract {
             foreach ($orderItems as $item) {
                 $itemData = $item->getData();
 
+                if ($itemData['price'] == 0)
+                    continue;
+
                 $product = Mage::getModel('catalog/product')->load($itemData['product_id']);
                 $productData = $product->getData();
 
                 $itemData['price'] * $itemData['tax_percent'];
 
+                $itemData['price_incl_tax'] = number_format($itemData['price_incl_tax'], 2);
+                
                 if ($productData['tax_class_id'] == '0')
                     $itemData['tax_percent'] = -1;
 
@@ -112,22 +117,29 @@ class Icepay_IceAdvanced_Model_Pay extends Mage_Payment_Model_Method_Abstract {
             if ($discount != '0')
                 $ic_order->setOrderDiscountAmount(-$discount);
 
-            // Set shipping costs
-            $shippingCosts = ($orderData['shipping_amount'] + $orderData['shipping_tax_amount']) * 100;
-            $shippingTax = $orderData['shipping_tax_amount'] / $orderData['shipping_amount'] * 100;
+            // Set shipping costs           
+            if ($orderData['shipping_amount'] != 0) {
+                $shippingCosts = ($orderData['shipping_amount'] + $orderData['shipping_tax_amount']) * 100;
+                $shippingTax = $orderData['shipping_tax_amount'] / $orderData['shipping_amount'] * 100;
 
-            $ic_order->setShippingCosts($shippingCosts, $shippingTax);
-            
-            // There should be a general extension model that checks if extension is installed, instead of giving each extension an isInstalled function
-            $giftWrapExtension = Mage::getModel('iceadvanced/extensions_MW_GiftWrap');
-                        
-            if ($giftWrapExtension->isGiftWrapInstalled()) {
+                $ic_order->setShippingCosts($shippingCosts, $shippingTax);
+            } else {
+                $ic_order->setShippingCosts(0, -1);
+            }
+
+            if (Mage::helper('icecore')->isModuleInstalled('MW_GiftWrap')) {
+                $giftWrapExtension = Mage::getModel('iceadvanced/extensions_MW_GiftWrap');
                 $giftWrapExtension->addGiftWrapPrices($session->getLastQuoteId());
             }
-            
+
+            if (Mage::helper('icecore')->isModuleInstalled('Magestore_Customerreward')) {
+                $customerRewardExtension = Mage::getModel('iceadvanced/extensions_MS_Customerreward');
+                $customerRewardExtension->addCustomerRewardPrices($orderData);
+            }
+
             // Log the XML Send
             Mage::helper("icecore")->log(serialize(Icepay_Order::getInstance()->createXML()));
-        }        
+        }
 
         try {
             $checkoutResult = $webservice->doCheckout(

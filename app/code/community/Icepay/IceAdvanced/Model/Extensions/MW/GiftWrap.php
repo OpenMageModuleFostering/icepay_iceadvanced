@@ -2,17 +2,6 @@
 
 class Icepay_IceAdvanced_Model_Extensions_MW_GiftWrap extends Mage_Payment_Model_Method_Abstract {
 
-    public function isGiftWrapInstalled() {
-        $modules = Mage::getConfig()->getNode('modules')->children();
-        $modulesArray = (array) $modules;
-
-        if (isset($modulesArray['MW_GiftWrap'])) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function addGiftWrapPrices($quoteID) {
         $collections1 = Mage::getModel('giftwrap/quote')->getCollection()
                 ->addFieldToFilter('quote_id', array('eq' => $quoteID));

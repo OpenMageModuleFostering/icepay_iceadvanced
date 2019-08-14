@@ -1,14 +1,17 @@
 <?xml version="1.0"?>
 
 <config>
+    <tabs>
+        <icepay translate="label" module="icecore">
+            <label>Icepay</label>
+            <sort_order>99999</sort_order>
+        </icepay>
+    </tabs> 
     <sections>
         <icecore translate="label comment" module="icecore">
-            <label>ICEPAY</label>
-            <tab>sales</tab>
-			
+            <label>Advanced</label>
+            <tab>icepay</tab>			
             <frontend_type>text</frontend_type>
-            <class>icepay-section</class>
-            <header_css>icepay-header</header_css>
             <sort_order>360</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
