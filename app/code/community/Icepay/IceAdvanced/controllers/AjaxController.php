@@ -31,6 +31,11 @@ class Icepay_IceAdvanced_AjaxController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    protected function _isAllowed()
+    {
+        return true;
+    }
+
     public function get_paymentmethodsAction()
     {
         $this->getResponse()->setBody(Zend_Json::encode($this->iceWebservice()->retrieveAdminGrid($this->getRequest()->get("store"))));
