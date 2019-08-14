@@ -1,9 +1,1 @@
-
-h3.icepay-header { background:url(images/section-logo.png) no-repeat 0 0; height:0; overflow:hidden; padding:18px 0 0; width:89px; }
-
-ul.tabs a.icepay-section,
-ul.tabs a.icepay-section:hover { background:url(../images/tabs_span_bg.gif) repeat-x 0 100%; border-bottom:none; padding:0.5em 0.5em 0.28em 1.5em; }
-ul.tabs a.icepay-section:hover { background-color:#d8e6e6; }
-ul.tabs a.icepay-section.active, ul.tabs a.icepay-section.active:hover { background-color:#fff; }
-ul.tabs a.icepay-section span,
-ul.tabs a.icepay-section:hover span { background:url(images/section-logo.png) no-repeat 0 0; padding: 0 0 0 80px; }
+h3.icepay-header { background:url(images/icepay-logo.png) no-repeat 0 0; height:0; overflow:hidden; padding:18px 0 0; width:89px; }

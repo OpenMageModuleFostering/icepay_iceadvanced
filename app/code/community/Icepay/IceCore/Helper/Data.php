@@ -17,11 +17,11 @@ class Icepay_IceCore_Helper_Data extends Mage_Core_Helper_Abstract {
     /* Install values */
 
     public $title = "Core";
-    public $version = "1.2.0";
+    public $version = "1.2.11";
     public $id = "003";
     public $fingerprint = "003";
     public $compatibility_oldest_version = "1.5.0.0";
-    public $compatibility_latest_version = "1.8.0.0";
+    public $compatibility_latest_version = "1.9.2.2";
     public $section = "icecore";
     public $serial_required = "0";
     public $imageDir = "adminhtml/default/default/icepay/images/";

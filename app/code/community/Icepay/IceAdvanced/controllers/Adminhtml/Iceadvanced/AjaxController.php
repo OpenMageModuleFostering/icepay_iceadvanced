@@ -13,8 +13,8 @@
  *  charged in accordance with the standard ICEPAY tariffs.
  * 
  */
-class Icepay_IceAdvanced_AjaxController extends Mage_Adminhtml_Controller_Action {
-
+class Icepay_IceAdvanced_Adminhtml_Iceadvanced_AjaxController extends Mage_Adminhtml_Controller_Action
+{
     protected $webservice = null;
 
     public function iceWebservice()
@@ -22,6 +22,15 @@ class Icepay_IceAdvanced_AjaxController extends Mage_Adminhtml_Controller_Action
         if ($this->webservice == null)
             $this->webservice = new Icepay_IceAdvanced_Model_Paymentmethods();
         return $this->webservice;
+    }
+
+    /**
+     * SUPEE-6285
+     * @see http://magento.stackexchange.com/a/73649/28266
+     */
+    protected function _isAllowed()
+    {
+        return true;
     }
 
     public function indexAction()
@@ -37,7 +46,6 @@ class Icepay_IceAdvanced_AjaxController extends Mage_Adminhtml_Controller_Action
 
     public function save_paymentmethodAction()
     {
-
         $adv_sql = Mage::getSingleton('iceadvanced/mysql4_iceAdvanced');
 
         $reference = $this->getRequest()->getPost("reference");
@@ -54,7 +62,7 @@ class Icepay_IceAdvanced_AjaxController extends Mage_Adminhtml_Controller_Action
             $issuers = explode(",", $this->getRequest()->getPost("active_issuers"));
             if (count($issuers) >= 1)
                 array_push($settings, "active_issuers"); //At least 1 issuer active is required
-        };
+        }
 
         foreach ($settings as $setting) {
             $adv_sql->saveConfigValue($reference, $setting, $this->getRequest()->getPost($setting));

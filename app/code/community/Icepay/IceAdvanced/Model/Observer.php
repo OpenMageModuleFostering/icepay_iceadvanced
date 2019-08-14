@@ -67,8 +67,12 @@ class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Containe
      */
     public function sales_order_place_before(Varien_Event_Observer $observer)
     {
-        $quote = Mage::getSingleton('checkout/session')->getQuote();
-        
+        $quote = $observer->getEvent()->getOrder()->getQuote();
+
+        if (!$quote->getId()) {
+            $quote = Mage::getSingleton('checkout/session')->getQuote();
+        }
+
         $paymentMethodCode = $quote->getPayment()->getMethodInstance()->getCode();
         $paymentMethodTitle = $quote->getPayment()->getMethodInstance()->getTitle();
 

@@ -31,7 +31,7 @@ class Icepay_IceAdvanced_Block_Adminhtml_Setting_Paymentmethod extends Mage_Core
     
     public function setPaymentmethod($method, $scopeID){
         $this->method = $method;
-        $this->scopeID = $scopeID;
+        $this->scopeID = $this->getRequest()->getParam('scope');
         $this->setViewData();
         return $this;
     }
@@ -39,7 +39,7 @@ class Icepay_IceAdvanced_Block_Adminhtml_Setting_Paymentmethod extends Mage_Core
     private function setViewData(){
         if ($this->viewData != null) return;
 
-        $this->useAdvancedSQL()->setScope($this->scopeID);
+        $this->useAdvancedSQL()->setScope($this->getRequest()->getParam('scope'));
 
         $reference = $this->useAdvancedSQL()->getReferenceFromPMCode($this->method);
         $data = $this->useAdvancedSQL()->getConfigDataByReference($reference);

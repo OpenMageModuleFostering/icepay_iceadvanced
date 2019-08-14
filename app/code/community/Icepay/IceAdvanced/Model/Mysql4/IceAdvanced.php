@@ -52,7 +52,7 @@ class Icepay_IceAdvanced_Model_Mysql4_IceAdvanced extends Mage_Core_Model_Mysql4
                 'issuers' => $mod_issuers[$i]["value"],
                 'active' => $mod_active[$i]["value"]
             ));
-        };
+        }
 
         return $config;
     }
