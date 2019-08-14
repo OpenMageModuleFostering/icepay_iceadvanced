@@ -36,9 +36,9 @@ class Icepay_IceCore_Model_Webservice_Core {
 
         $sslContext = array(
             'ssl' => array(
-                'cafile' => 'thawte.pem',
+                'local_cert' => 'cacert.pem',
                 'allow_self_signed' => false,
-                'verify_peer' => true
+                'verify_peer' => false
             )
         );
 
