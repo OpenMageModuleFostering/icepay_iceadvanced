@@ -1,0 +1,61 @@
+/*headers*/
+"Set-up configuration","Set-up configuration"
+"Installed modules","Installed modules"
+
+/*tooltips*/
+"Copy the Merchant ID from your ICEPAY account.","Copy the Merchant ID from your ICEPAY account."
+"Copy the Secret Code from your ICEPAY account.","Copy the Secret Code from your ICEPAY account."
+"Copy-Paste this URL to the Success URL section of a (new) ICEPAY merchant account.","Copy-Paste this URL to the Success URL section of a (new) ICEPAY merchant account."
+"Copy-Paste this URL to the Error URL section of a (new) ICEPAY merchant account.","Copy-Paste this URL to the Error URL section of a (new) ICEPAY merchant account."
+"Copy-Paste this URL to the Postback URL section of a (new) ICEPAY merchant account.","Copy-Paste this URL to the Postback URL section of a (new) ICEPAY merchant account."
+
+/*labels*/
+"Merchant ID","Merchant ID"
+"Secret Code","Secret Code"
+"URL for Success","Thank you page"
+"URL for Error","Error page"
+"URL for Postback/Notify","Postback URL"
+"Auto invoice","Auto invoice"
+"Description on transaction statement of customer","Description on transaction statement of customer"
+"Please read the core manual","<a href="http://www.icepay.com/downloads/pdf/manuals/magento/icepay-manual-magento-basic.pdf" target="blank" class="btn-manual"></a> <a href="http://www.icepay.nl/webshop-modules/ideal-voor-magento-basic" target="blank" class="btn-movie"></a><BR/><BR/><BR/><span class="manual-comment">Need help? View our manual or install video!</span>
+
+/*comments*/
+"Step 1.","Step 1."
+"Step 2.","Step 2."
+"This configuration section is for implementing ICEPAY, please do not change these settings after saving.","This configuration section is for linking to your <a href="https://www.icepay.com/EN/Login?origin=magento_admin" target="blank">ICEPAY Merchant website</a>, please do not change these settings after saving."
+"Configuration Information","Configuration Information"
+"This is an overview of installed ICEPAY modules",""
+"Have Magento create the invoice automatically when payment has been completed.",""
+
+/*notifications*/
+"Merchant ID is properly configured","Merchant ID is properly configured"
+"Merchant ID not set for this storeview","Merchant ID not set for this storeview"
+"Merchant ID does not contain 5 digits","Merchant ID does not contain 5 digits"
+"Merchant ID is not numeric","Merchant ID is not numeric"
+"SecretCode is properly configured","SecretCode is properly configured"
+"SecretCode not set for this storeview","SecretCode not set for this storeview"
+"SecretCode does not contain 40 characters","SecretCode does not contain 40 characters"
+
+/*statuscodes*/
+"Awaiting payment","Awaiting payment"
+"Payment received","Payment received"
+"Payment error","Payment error"
+"Payment refund request","Payment refund request"
+"Payment chargeback request","Payment chargeback request"
+
+/*statement*/
+"icepay_about_line1","ICEPAY is a Dutch Payment Service Provider that provides online payments for third parties. The following happens when you, the consumer, do a payment to the owner of this web shop ( a customer of ICEPAY): First, the payment goes to ICEPAY ( or Stichting Escrow ICEPAY) and next ICEPAY ensures that the owner of the web shop receives your transaction. ICEPAY is an intermediary party."
+"icepay_about_line2","Hence, ICEPAY does not have any influence on the delivery of the products or services you ordered .In case you have any questions about the delivery/cancellation/refunding of your order, we advise to contact the web shop."
+"icepay_about_line3","Your payment is protected by ICEPAY in different ways, because:"
+"icepay_about_currence","ICEPAY has a <a href='http://www.currence.nl/nl-NL/OverOnzeProducten/LicentieEnCertificaathouders/Pages/iDEAL.aspx' target='_blank'>Currence</a> (owner of iDEAL) iDEAL certification. This way, ICEPAY meets the Currence requirements of the competency guidelines;"
+"icepay_about_thawte","ICEPAY has the Thawte SSL certification. Thus ICEPAY obtains the highest level of authentication during the processing of a payment. This means a guaranteed safe payment environment;"
+"icepay_about_thuiswinkel","ICEPAY is an official business partner of Thuiswinkel.org (the Dutch organization for online shopping). This partnership shows that ICEPAY follows strict rules and regulations concerning privacy, right of withdrawal and dispute settlement."
+"icepay_about_link","<a href='http://www.icepay.com' target='_blank'>Visit the ICEPAY website</a>"
+
+/*frontend*/
+"Redirecting...","Redirecting... Please wait a moment"
+
+/* postback */
+"Status of order changed","Status of order changed"
+"Customer returned with status: %s","Customer returned with status: %s"
+"The payment provider has returned the following error message: %s","The payment provider has returned the following error message: %s"

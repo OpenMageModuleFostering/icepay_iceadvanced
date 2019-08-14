@@ -1,0 +1,83 @@
+
+<form id="icepay_paymentmethod" name="icepay_paymentmethod" >
+
+<input type="hidden" name="reference" value="<?php echo $this->getViewData()->module ?>"/>
+<input type="hidden" name="name" value="<?php echo $this->getViewData()->config['title'] ?>"/>
+<input type="hidden" name="store" value="<?php echo $this->scopeID ?>"/>
+
+<table class="form-list" cellspacing="0"><colgroup class="label"></colgroup><colgroup class="value"></colgroup><colgroup class="scope-label"></colgroup><colgroup class=""></colgroup><tbody>
+
+<tr id="row_iceadvanced_generic_min_order_total">
+    <td class="label"><label for="iceadvanced_generic_min_order_total"><?php echo($this->__("Settings for")); ?></label></td>
+    <td class="value"><?php echo $this->getViewData()->config['title'] ?></td>
+</tr>
+<tr id="row_iceadvanced_generic_checkout_descr">
+    <td class="label"><label for="iceadvanced_generic_checkout_descr"><?php echo($this->__("Description in checkout")); ?></label></td>
+    <td class="value"><textarea id="iceadvanced_generic_checkout_descr" name="description" rows="2" cols="4" style="width:300px;height:40px"><?php echo $this->getViewData()->config['description'] ?></textarea>
+        <p class="note"><span><?php echo($this->__("Description displayed in checkout")); ?></span></p>
+    </td>
+</tr>
+<tr>
+    <td class="label"><label><?php echo($this->__("Issuers")); ?></label></td>
+    <td class="value"><select id="iceadvanced_generic_issuers" name="active_issuers" class=" select multiselect" size="9" multiple="multiple" <?php if(count($this->getViewData()->issuers) == 1)echo('disabled="disabled"'); ?>>
+    <?php
+        foreach ($this->getViewData()->issuers as $key => $value) {
+            $selected = (strstr($this->getViewData()->config['active_issuers'],$value['issuer_code']))?"selected":"";
+            echo("<option value=\"{$value['issuer_code']}\" {$selected}>{$value['issuer_name']}</option>");
+        }
+    ?>
+    </select>
+        <p class="note"><span><?php echo($this->__("Use CTRL to activate/deactivate specific issuers")); ?></span></p>
+    </td>
+</tr>
+<tr id="row_iceadvanced_generic_allowspecific">
+    <td class="label"><label for="iceadvanced_generic_allowspecific"> <?php echo($this->__("Payment from Applicable Countries")); ?></label></td>
+    <td class="value">
+        <select id="iceadvanced_generic_allowspecific" name="allowspecific" class=" select">
+            <option value="0" <?php if($this->getViewData()->config['allowspecific'] != 1) echo('selected="selected"') ?>><?php echo($this->__("All Allowed Countries")); ?></option>
+            <option value="1" <?php if($this->getViewData()->config['allowspecific'] == 1) echo('selected="selected"') ?>><?php echo($this->__("Specific Countries")); ?></option>
+        </select>
+        <script type="text/javascript">
+            checkDisplay();
+            function checkDisplay(){
+                specific=$('iceadvanced_generic_allowspecific').value;
+                if (!specific || specific!=1){
+                        $('row_iceadvanced_generic_specificcountry').hide();
+                    } else {
+                        $('row_iceadvanced_generic_specificcountry').show();
+                    };
+            };
+            Event.observe('iceadvanced_generic_allowspecific', 'change', function(){
+                checkDisplay();
+            });
+        </script>
+    </td>
+</tr>
+<tr id="row_iceadvanced_generic_specificcountry">
+    <td class="label"><label for="iceadvanced_generic_specificcountry"> <?php echo($this->__("Payment from Specific Countries")); ?></label></td>
+    <td class="value"><input name="groups[generic][fields][specificcountry][value]" value="" type="hidden">
+        <select id="iceadvanced_generic_specificcountry" name="specificcountry" class=" select multiselect" size="10" multiple="multiple">
+        <?php
+            foreach ($this->getViewData()->countryCollection as $country) {
+                $selected = (strstr($this->getViewData()->config['specificcountry'],$country['value']))?"selected":"";
+                echo("<option value=\"{$country['value']}\" {$selected}>{$country['label']}</option>");
+            }
+        ?>
+        </select>
+        <p class="note"><span><?php echo($this->__("Use CTRL to select specific countries")); ?></span></p>
+    </td>
+</tr>
+<tr id="row_iceadvanced_generic_min_order_total">
+    <td class="label"><label for="iceadvanced_generic_min_order_total"> <?php echo($this->__("Minimum Order Total")); ?></label></td>
+    <td class="value"><input id="iceadvanced_generic_min_order_total" name="min_order_total" value="<?php echo $this->getViewData()->config['min_order_total'] ?>" class=" input-text" type="text"></td>
+</tr>
+<tr id="row_iceadvanced_generic_max_order_total">
+    <td class="label"><label for="iceadvanced_generic_max_order_total"> <?php echo($this->__("Maximum Order Total")); ?></label></td>
+    <td class="value"><input id="iceadvanced_generic_max_order_total" name="max_order_total" value="<?php echo $this->getViewData()->config['max_order_total'] ?>" class=" input-text" type="text"></td>
+</tr>
+<tr id="row_iceadvanced_generic_sort_order">
+    <td class="label"><label for="iceadvanced_generic_sort_order"> <?php echo($this->__("Sort order")); ?></label></td>
+    <td class="value"><input id="iceadvanced_generic_sort_order" name="sort_order" value="<?php echo $this->getViewData()->config['sort_order'] ?>" class=" input-text" type="text"></td>
+</tr>
+</tbody></table>
+</form>

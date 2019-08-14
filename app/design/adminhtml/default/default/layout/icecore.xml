@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+
+<layout>
+    <adminhtml_system_config_edit>
+        <reference name="content">
+            <block type="icecore/adminhtml_init" name="icecore_init"  template="icecore/init.phtml"></block>
+        </reference>
+    </adminhtml_system_config_edit>
+    <basicgateway_adminhtml_icecore_index>
+        <reference name="content">
+            <block type="icecore/adminhtml_icecore" name="icecore" />
+        </reference>
+    </basicgateway_adminhtml_icecore_index>
+</layout>

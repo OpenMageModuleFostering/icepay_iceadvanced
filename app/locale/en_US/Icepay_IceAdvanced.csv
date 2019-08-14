@@ -1,0 +1,32 @@
+/*adminhtml*/
+"Please read the advanced manual","<a href="http://www.icepay.com/downloads/pdf/manuals/magento/icepay-manual-magento-advanced.pdf" target="blank" class="btn-manual"></a> <a href="http://www.icepay.nl/webshop-modules/ideal-voor-magento-advanced" target="blank" class="btn-movie"></a><BR/><BR/><BR/><span class="manual-comment">Need help? View our manual or install video!</span>
+"Paymentmethods","Paymentmethods"
+"Filter paymentmethods on customer billing country","Filter paymentmethods on customer billing country"
+"Configure ICEPAY paymentmethods [STORE VIEW]","Configure ICEPAY paymentmethods [STORE VIEW]"
+"SOAP webservices available","SOAP webservices available"
+"SOAP was not found on this server","SOAP was not found on this server"
+"%s paymentmethods in database","%s paymentmethods in database"
+"%s paymentmethods stored for this Store view","%s paymentmethods stored for this Store view"
+"%s paymentmethods stored in Default settings","%s paymentmethods stored in Default settings"
+"No active paymentmethods found","No active paymentmethods found"
+"SOAP connection established","SOAP connection established"
+"%s active paymentmethods found","%s active paymentmethods found"
+"Configure","Configure"
+"Title","Title"
+"Settings","Settings"
+"Settings for","Settings for"
+"Sort order","Sort order"
+"Get paymentmethods","Get paymentmethods"
+"Paymentmethod","Paymentmethod"
+"Save Config to configure","Save Config to configure"
+"Some payment methods allow customized descriptions on the transaction statement. If left empty the Magento Order ID is used. (Max 100 char.)","Some payment methods allow customized descriptions on the transaction statement. If left empty the Magento Order ID is used. (Max 100 char.)"
+"Description displayed in checkout","Description displayed in checkout"
+"Save settings","Save settings"
+"Cancel","Cancel"
+"Use CTRL to activate/deactivate specific issuers","Use CTRL to activate/deactivate specific issuers"
+"Use CTRL to select specific countries","Use CTRL to select specific countries"
+
+/*frontend*/
+"Please select an issuer","Please select an issuer"
+"Please select a country","Please select a country"
+

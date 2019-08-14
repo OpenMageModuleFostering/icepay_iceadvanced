@@ -1,0 +1,21 @@
+
+<p><img src="<?php echo($this->getSkinUrl('images/icepay/icepay-logo.png')); ?>"></p>
+
+<div id="icepay_statement" style="background-color: #FFF; padding:16px;border-radius: 4px; -moz-border-radius: 4px;-webkit-border-radius: 4px;">
+
+            <p><?php echo Mage::helper("icecore")->__("icepay_about_line1"); ?></p>
+            <p><?php echo Mage::helper("icecore")->__("icepay_about_line2"); ?></p>
+            <p><?php echo Mage::helper("icecore")->__("icepay_about_line3"); ?></p>
+            <ul>
+                <li style="list-style:none; padding-left: 80px; min-height: 75px; background:url(<?php echo($this->getSkinUrl('images/icepay/logo-currence.png'))?>) no-repeat">
+                    <p><?php echo Mage::helper("icecore")->__("icepay_about_currence"); ?></p>
+                </li>
+                <li style="list-style:none; padding-left: 80px; min-height: 75px; background:url(<?php echo($this->getSkinUrl('images/icepay/logo-thawte.png'))?>) no-repeat">
+                    <p><?php echo Mage::helper("icecore")->__("icepay_about_thawte"); ?></p>
+                </li>
+                <li style="list-style:none; padding-left: 80px; min-height: 75px; background:url(<?php echo($this->getSkinUrl('images/icepay/logo-thuiswinkel.png'))?>) no-repeat">
+                    <p><?php echo Mage::helper("icecore")->__("icepay_about_thuiswinkel"); ?></p>
+                </li>
+            </ul>
+            <p><?php echo Mage::helper("icecore")->__("icepay_about_link"); ?></p>
+</div>

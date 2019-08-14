@@ -1,0 +1,61 @@
+/*headers*/
+Set-up configuration,"Configurazione dell'installazione"
+Installed modules,"Moduli installati"
+
+/*tooltips*/
+Copy the Merchant ID from your ICEPAY account.,"Copi il  Merchant ID del suo ICEPAY merchant account"
+Copy the Secret Code from your ICEPAY account.,"Copi il Secret Code del suo ICEPAY merchant account"
+Copy-Paste this URL to the Success URL section of a (new) ICEPAY merchant account.,"Copi e incolli questo URL nel campo della Pagina di ringraziamento del suo (nuovo) ICEPAY merchant website"
+Copy-Paste this URL to the Error URL section of a (new) ICEPAY merchant account.,"Copi e incolli questo URL  nel campo della Pagina di errore del suo (nuovo) ICEPAY merchant website"
+Copy-Paste this URL to the Postback URL section of a (new) ICEPAY merchant account.,"Copi e incolli questo URL  nel campo della Pagina di Postback del suo (nuovo) ICEPAY merchant website"
+
+/*labels*/
+Merchant ID,"Merchant ID"
+Secret Code,"Secret Code"
+URL for Success,"Pagina di ringraziamento"
+URL for Error,"Pagina di errore"
+URL for Postback/Notify,"URL di Postback"
+Auto invoice,"Fatturazione automatica"
+Description on transaction statement of customer,"Descrizione sul resoconto della transazione del cliente"
+Please read the core manual,"<a href='http://www.icepay.com/downloads/pdf/manuals/magento/icepay-manual-magento-basic.pdf' target="blank" class="btn-manual"></a> <a href="http://www.icepay.nl/webshop-modules/ideal-voor-magento-basic" target="blank" class="btn-movie"></a><BR/><BR/><BR/><span class="manual-comment">Ha bisogno di aiuto per l'impostazione? Consulti il nostro manuale o il video di installazione.</span>
+
+/*comments*/
+Step 1.,"Passo 1"
+Step 2.,"Passo 2"
+This configuration section is for implementing ICEPAY, please do not change these settings after saving.,"This configuration section is for implementing your <a href="https://www.icepay.com/NL/Login?origin=magento_admin" target="blank">ICEPAY Merchant website</a>.  Una volta salvate la preghiamo di non cambiare queste impostazioni. "
+Configuration Information,"Informazioni sulla configurazione"
+This is an overview of installed ICEPAY modules,"Questa &egrave; una panoramica dei moduli ICEPAY installati"
+Have Magento create the invoice automatically when payment has been completed.,"Lasci che Magenta crei automaticamente la fattura una volta completato il pagamento."
+
+/*notifications*/
+Merchant ID is properly configured,"Merchant ID &egrave; stato configurato correttamente"
+Merchant ID not set for this storeview,"Merchant ID non &egrave; configurato in questa panoramica del negozio"
+Merchant ID does not contain 5 digits,"Merchant ID non contiene le 5 cifre necessarie"
+Merchant ID is not numeric,"Merchant ID non &egrave; numerico"
+SecretCode is properly configured,"Secret Code &egrave; stato configurato correttamente"
+SecretCode not set for this storeview,"Secret Code non &egrave; configurato in questa panoramica del negozio"
+SecretCode does not contain 40 characters,"Secret Code non contiene i 40 caratteri necessari"
+
+/*statuscodes*/
+Awaiting payment,"In attesa di pagamento"
+Payment received,"Pagamento ricevuto"
+Payment error,"Errore nel pagamento"
+Payment refund request,"Richiesta di rimborso"
+Payment chargeback request,"Richiesta di chargeback"
+
+/*statement*/
+icepay_about_line1,"ICEPAY &egrave; un Service Provider di Pagamenti olandese che si occupa dei pagamenti per terzi. Quando lei come consumatore effettua un pagamento al proprietario di questo webshop (un cliente di ICEPAY), il pagamento viene prima ricevuto da  ICEPAY (o fondazione Escrow ICEPAY) e ICEPAY fa in modo che la sua transazione venga pagata al proprietario del  webshop."
+icepay_about_line2,"ICEPAY &egrave; perci&ograve; un intermediario e non ha alcuna influenza sulla consegna dei prodotti o dei servizi da lei ordinati. Se ha delle domande sulla consegna/l'annullamento/il rimborso della sua ordinazione, allora le consigliamo di mettersi in contatto con il webshop."
+icepay_about_line3,"Il suo pagamento &egrave; assicurato in diversi modi da ICEPAY poiché "
+icepay_about_currence,"ICEPAY &egrave; in possesso di una Certificazione iDEAL di <a href='http://www.currence.nl/nl-NL/OverOnzeProducten/LicentieEnCertificaathouders/Pages/iDEAL.aspx' target='_blank'>Currence</a>(proprietario di iDEAL). In questo modo ICEPAY risponde ai requisiti richiesti da Currence riguardanti, tra le altre cose, la tecnica, la sicurezza e l'affidabilità.";"
+icepay_about_thawte","ICEPAY beschikt over de Thawte SSL certificering . Zo verkrijgt ICEPAY het hoogste niveau van authentificatie bij de afhandeling van een betaling. Dit betekent een gegarandeerd veilige betaalomgeving";"
+icepay_about_thuiswinkel","ICEPAY business partner van Thuiswinkel. org is. Dit verzekert u ervan dat  ICEPAY strikte regels op gebied van informatieplicht, privacy, herroepingrecht en geschillenbeslechting naleeft."
+icepay_about_link,"<a href='http://www.icepay.com' target='_blank'>Visiti il sito web ICEPAY</a>"
+
+/*frontend*/
+Redirecting...,"Attenda un attimo per favore"
+
+/* postback */
+Status of order changed,"Lo status dell'ordinazione &egrave; cambiato"
+Customer returned with status: %s,"Il cliente &egrave; ritornato con lo status: %s"
+The payment provider has returned the following error message: %s,"Il provider dei pagamenti ha inviato il seguente messaggio di errore:  %s"

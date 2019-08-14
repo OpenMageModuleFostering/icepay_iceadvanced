@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Icepay_IceCore>
+            <version>1.0.2</version>
+        </Icepay_IceCore>
+    </modules>
+    <frontend>
+        <routers>
+            <icepay>
+                <use>standard</use>
+                <args>
+                    <module>Icepay_IceCore</module>
+                    <frontName>icepay</frontName>
+                </args>
+            </icepay>
+        </routers>
+        <layout>
+            <updates>
+                <icecore>
+                    <file>icecore.xml</file>
+                </icecore>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Icepay_IceCore>
+                    <files>
+                        <default>Icepay_IceCore.csv</default>
+                    </files>
+                </Icepay_IceCore>
+            </modules>
+        </translate>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Icepay_IceCore>
+                    <files>
+                        <default>Icepay_IceCore.csv</default>
+                    </files>
+                </Icepay_IceCore>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <icecore translate="title" module="icecore">
+                                            <title>icecore Settings</title>
+                                        </icecore>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <icecore>
+                    <file>icecore.xml</file>
+                </icecore>
+            </updates>
+        </layout>
+    </adminhtml>
+    <global>
+        <models>
+            <icecore>
+                <class>Icepay_IceCore_Model</class>
+                <resourceModel>icecore_mysql4</resourceModel>
+            </icecore>
+            <icecore_mysql4>
+                <class>Icepay_IceCore_Model_Mysql4</class>
+                <entities>
+                    <icepay_transactions>
+                        <table>icepay_transactions</table>
+                    </icepay_transactions>
+                </entities>
+            </icecore_mysql4>
+        </models>
+        <resources>
+            <icepaycore_setup>
+                <setup>
+                    <module>Icepay_IceCore</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </icepaycore_setup>
+            <icecore_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </icecore_write>
+            <icecore_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </icecore_read>
+        </resources>
+        <blocks>
+            <icecore>
+                <class>Icepay_IceCore_Block</class>
+            </icecore>
+        </blocks>
+        <helpers>
+            <icecore>
+                <class>Icepay_IceCore_Helper</class>
+            </icecore>
+        </helpers>
+        <payment>
+            <groups>
+                <icepay>ICEPAY</icepay>
+            </groups>
+        </payment>
+        <sales>
+            <order>
+                <statuses>
+                    <icecore_new translate="label">
+                        <label>New</label>
+                        <visible_on_front/>
+                    </icecore_new>
+                    <icecore_open translate="label">
+                        <label>Awaiting payment</label>
+                        <visible_on_front/>
+                    </icecore_open>
+                    <icecore_ok translate="label">
+                        <label>Payment received</label>
+                    </icecore_ok>
+                    <icecore_err translate="label">
+                        <label>Payment error</label>
+                    </icecore_err>
+                    <icecore_refund translate="label">
+                        <label>Payment refund request</label>
+                    </icecore_refund>
+                    <icecore_cback translate="label">
+                        <label>Payment chargeback request</label>
+                    </icecore_cback>
+                </statuses>
+                <states>
+                    <pending_payment>
+                        <statuses>
+                            <icecore_new/>
+                            <icecore_open/>
+                        </statuses>
+                        <visible_on_front/>
+                    </pending_payment>
+                    <processing_payment>
+                        <statuses>
+                            <icecore_ok/>
+                        </statuses>
+                        <visible_on_front/>
+                    </processing_payment>
+                    <cancel_payment>
+                        <statuses>
+                            <icecore_err/>
+                        </statuses>
+                        <visible_on_front/>
+                    </cancel_payment>
+                </states>
+
+            </order>
+        </sales>
+    </global>
+    <default>
+        <icecore>
+            <advancedconfig>
+                <language>en_US</language>
+            </advancedconfig>
+            <core_options>
+                <order_autoinvoice>1</order_autoinvoice>
+            </core_options>
+        </icecore>
+    </default>
+</config>

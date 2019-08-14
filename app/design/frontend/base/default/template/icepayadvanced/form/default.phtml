@@ -1,0 +1,52 @@
+<?php
+
+$_code = $this->getMethodCode();
+
+?>
+
+<ul  class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none">
+
+    <input type="hidden" name="payment[<?php echo $_code ?>_paymentmethod]" value="<?php echo $this->getPMCode() ?>">
+
+    <?php if($this->getPMCode()): ?>
+    <li>
+        <label for="<?php echo $_code ?>_image"><?php
+            Mage::helper("icecore")->imageDir = "frontend/base/default/images/icepay/";
+            Mage::helper("icecore")->imageExtension = "png";
+            echo Mage::helper("icecore")->toIcon(Mage::helper("icecore")->cleanString($this->getPMCode()));
+                ?></label>
+    </li>
+    <?php endif; ?>
+
+    <?php if($this->getTitle()): ?>
+    <li>
+        <label for="<?php echo $_code ?>_title"><?php echo $this->getTitle() ?></label>
+    </li>
+    <?php endif; ?>
+
+    <?php if($this->getDescription()): ?>
+    <li>
+        <label for="<?php echo $_code ?>_info"><?php echo $this->getDescription() ?></label>
+    </li>
+    <?php endif; ?>
+
+    <?php if($this->_issuer): ?>
+        <?php if(count($this->_issuer) > 1): ?>
+            <li>
+            <label for="<?php echo $_code ?>_icepay_issuer" class="required"><em>*</em><?php echo $this->__('Please select an issuer') ?></label>
+            <div class="input-box">
+                <select id="<?php echo $_code ?>_icepay_issuer" name="payment[<?php echo $_code ?>_issuer]" class="required-entry validate-alpha">
+                    <option value="" selected><?php echo $this->__('--Please Select--')?></option>
+                    <?php
+                    foreach($this->_issuer as $issuer){
+                            echo('<option value="'.$issuer['value'].'">'.$this->__($issuer['label']).'</option>');
+                    };
+                    ?>
+                </select>
+            </div>
+            </li>
+        <?php else:  ?>
+            <input type="hidden" name="payment[<?php echo $_code ?>_issuer]" value="<?php echo $this->_issuer[0]['value'] ?>">
+        <?php endif; ?>
+    <?php endif; ?>
+</ul>

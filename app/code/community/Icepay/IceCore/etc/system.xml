@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+
+<config>
+    <sections>
+        <icecore translate="label comment" module="icecore">
+            <label>ICEPAY</label>
+            <tab>sales</tab>
+			
+            <frontend_type>text</frontend_type>
+            <class>icepay-section</class>
+            <header_css>icepay-header</header_css>
+            <sort_order>360</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <settings translate="label comment">
+                    <label>Set-up configuration</label>
+                    <comment>This configuration section is for implementing ICEPAY, please do not change these settings after saving.</comment>
+                    <expanded>0</expanded>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <step_1>
+                            <label>Step 1.</label>
+                            <frontend_type>Label</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </step_1>
+                        <merchant_url_ok translate="label comment">
+                            <label>URL for Success</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>icecore/adminhtml_generateURL</frontend_model>
+                            <tooltip>Copy-Paste this URL to the Success URL section of a (new) ICEPAY merchant account.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>6</sort_order>
+                        </merchant_url_ok>
+                        <merchant_url_err translate="label comment">
+                            <label>URL for Error</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>icecore/adminhtml_generateURL</frontend_model>
+                            <tooltip>Copy-Paste this URL to the Error URL section of a (new) ICEPAY merchant account.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>7</sort_order>
+                        </merchant_url_err>
+                        <merchant_url_notify translate="label comment">
+                            <label>URL for Postback/Notify</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>icecore/adminhtml_generateURL</frontend_model>
+                            <tooltip>Copy-Paste this URL to the Postback URL section of a (new) ICEPAY merchant account.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>8</sort_order>
+                        </merchant_url_notify>
+                        <step_2>
+                            <label>Step 2.</label>
+                            <frontend_type>label</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </step_2>
+                        <merchant_id>
+                            <label>Merchant ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <validate>validate-number validate-length minimum-length-5 maximum-length-5</validate>
+                            <tooltip>Copy the Merchant ID from your ICEPAY account.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </merchant_id>
+                        <merchant_secret translate="label comment">
+                            <label>Secret Code</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>24</sort_order>
+                            <validate>validate-alphanum validate-length minimum-length-40 maximum-length-40</validate>
+                            <tooltip>Copy the Secret Code from your ICEPAY account.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </merchant_secret>
+                        <step_3>
+                            <label>Configuration Information</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>icecore/adminhtml_checkSettings</frontend_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </step_3>
+                        <manual>
+                            <label></label>
+                            <comment>Please read the core manual</comment>
+                            <frontend_type>label</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </manual>
+                    </fields>
+                </settings>
+				
+                <modules translate="label">
+                    <label>Installed modules</label>
+                    <comment>This is an overview of installed ICEPAY modules</comment>
+                    <expanded>1</expanded>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <frontend_type>text</frontend_type>
+                    <fields>
+                        <version>
+                            <label>Modules</label>
+                            <frontend_model>icecore/adminhtml_grid_modules</frontend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </version>
+                    </fields>
+                </modules>
+                
+                <core_options translate="label">
+                    <label>Options</label>
+                    <expanded>1</expanded>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <order_autoinvoice translate="label">
+                            <label>Auto invoice</label>
+                            <comment>Have Magento create the invoice automatically when payment has been completed.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </order_autoinvoice>
+                        <transaction_descr translate="label">
+                            <label>Description on transaction statement of customer</label>
+                            <comment>Some payment methods allow customized descriptions on the transaction statement. If left empty the Magento Order ID is used. (Max 100 char.)</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-length maximum-length-99</validate>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </transaction_descr>
+                        <iprange translate="label">
+                            <label>(Optional) Custom IP Range for IP Check for Postbackk</label>
+                            <comment>For example a proxy: 1.222.333.444-100.222.333.444 For multiple ranges use a , seperator: 2.2.2.2-5.5.5.5,8.8.8.8-9.9.9.9</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </iprange>
+                    </fields>
+                </core_options>
+            </groups>
+        </icecore>
+    </sections>
+</config>

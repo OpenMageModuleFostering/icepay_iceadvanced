@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+
+<layout>
+    <icepay_about_index>
+        <reference name="content">
+            <block type="icecore/front_statement" name="icecore_statement" ></block>
+        </reference>
+    </icepay_about_index>
+</layout>
