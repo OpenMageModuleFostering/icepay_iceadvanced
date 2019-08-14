@@ -2,7 +2,8 @@
 
 class Icepay_IceAdvanced_Model_Extensions_MW_GiftWrap extends Mage_Payment_Model_Method_Abstract {
 
-    public function addGiftWrapPrices($quoteID) {
+    public function addGiftWrapPrices($quoteID, $ic_order)
+    {
         $collections1 = Mage::getModel('giftwrap/quote')->getCollection()
                 ->addFieldToFilter('quote_id', array('eq' => $quoteID));
 
@@ -18,15 +19,18 @@ class Icepay_IceAdvanced_Model_Extensions_MW_GiftWrap extends Mage_Payment_Model
                 $productQuantity = $collection2->getQuantity();
             }
 
-            Icepay_Order::getInstance()
-                    ->addProduct(Icepay_Order_Product::create()
-                            ->setProductID($productID)
-                            ->setProductName('Gift Wrapping')
-                            ->setDescription('Gift Wrapping')
-                            ->setQuantity($productQuantity)
-                            ->setUnitPrice($giftPrice * 100)
-                            ->setVATCategory(Icepay_Order_VAT::getCategoryForPercentage(0))
-            );
+            $product = $ic_order->createProduct()
+                    ->setProductID($productID)
+                    ->setProductName('Gift Wrapping')
+                    ->setDescription('Gift Wrapping')
+                    ->setQuantity($productQuantity)
+                    ->setUnitPrice($giftPrice * 100)
+                    ->setVATCategory($ic_order->getCategoryForPercentage(0))
+            ;
+            
+            $ic_order->addProduct($product);
+            
+            return $ic_order;
         }
     }
 

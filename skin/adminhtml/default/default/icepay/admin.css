@@ -128,6 +128,6 @@
     text-align: left;
 }
 
-.content-header h3 {
+.content-header h3.icepay-header {
     background:url(images/icepay-logo.png) no-repeat 0 0; height:0; padding: 25px 0 0 220px; width: 224px; height: 39px;  display:block;
 }

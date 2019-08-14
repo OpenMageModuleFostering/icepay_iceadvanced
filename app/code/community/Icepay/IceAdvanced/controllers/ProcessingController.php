@@ -13,24 +13,25 @@
  *  charged in accordance with the standard ICEPAY tariffs.
  * 
  */
-
 class Icepay_IceAdvanced_ProcessingController extends Mage_Core_Controller_Front_Action {
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->loadLayout();
         $this->renderLayout();
     }
 
-    public function payAction() {        
+    public function payAction()
+    {
         $pay = Mage::getModel('iceadvanced/pay');
         $result = $pay->getCheckoutResult();
         
-        if (!is_array($result)){
-            Mage::getSingleton('checkout/session')->setErrorMessage(sprintf($this->__("The payment provider has returned the following error message: %s"),$result));
+        if (!is_array($result)) {
+            Mage::getSingleton('checkout/session')->setErrorMessage(sprintf($this->__("The payment provider has returned the following error message: %s"), $result));
             parent::_redirect('checkout/onepage/failure');
-        } else {   
+        } else {
             $checkoutResult = (isset($result['CheckoutExtendedResult'])) ? $result['CheckoutExtendedResult'] : $result['CheckoutResult'];
-            
+
             $this->getResponse()->setBody($this->__("Redirecting"))->setRedirect($checkoutResult->PaymentScreenURL);
         }
     }

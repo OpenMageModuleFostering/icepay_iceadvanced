@@ -16,52 +16,21 @@
 class Icepay_IceAdvanced_Helper_Data extends Mage_Core_Helper_Abstract {
     /* Install values */
 
-    public $title = "Advanced";
-    public $version = "1.1.8";
-    public $id = "ADV";
-    public $fingerprint = "7f4de76ecbf7d847caeba64c42938a6a05821c4f";
-    public $compatibility_oldest_version = "1.5.0.0";
-    public $compatibility_latest_version = "1.7.0.2";
-    public $section = "iceadvanced";
-    public $serial_required = "0";
-    public $filteredPaymentmethods = array("SMS", "PHONE");
+    public $title = 'Advanced';
+    public $version = '1.1.9';
+    public $id = 'ADV';
+    public $fingerprint = '7f4de76ecbf7d847caeba64c42938a6a05821c4f';
+    public $compatibility_oldest_version = '1.5.0.0';
+    public $compatibility_latest_version = '1.7.0.2';
+    public $section = 'iceadvanced';
+    public $serial_required = '0';
+    public $filteredPaymentmethods = array('SMS', 'PHONE');
+    public $filteredPaymentMethodIssuers = array('CCAUTOCHECKOUT', 'IDEALINCASSO');
 
-    /* For admin */
-
-    public function doChecks() {
-        
+    public function doChecks()
+    {
         $lines = array();
-        $checkMerchant = true;
-        $checkCode = true;
         
-        
-
-        /* Check Merchant ID */
-        $check = Mage::helper("icecore")->validateMerchantID($this->getValueForStore(Icepay_IceCore_Model_Config::MERCHANTID));
-        array_push($lines, array(
-            'id' => "merchantid",
-            'line' => $check["msg"],
-            'result' => ($check["val"] ? "ok" : "err")));
-        $checkMerchant = $check["val"] ? true : false;
-
-        /* Check SecretCode */
-        $check = Mage::helper("icecore")->validateSecretCode($this->getValueForStore(Icepay_IceCore_Model_Config::SECRETCODE));
-        array_push($lines, array(
-            'id' => "secretcode",
-            'line' => $check["msg"],
-            'result' => ($check["val"] ? "ok" : "err")));
-        $checkCode = $check["val"] ? true : false;
-
-        /* The MerchantID and SecretCode checks will not be displayed in this module */
-        if (!$checkMerchant || !$checkCode) {
-            $lines = array();
-            array_push($lines, array(
-                'id' => "merchant",
-                'line' => $this->__("Merchant settings are incorrect"),
-                'result' => "err"));
-        } else
-            $lines = array();
-
         /* Check SOAP */
         $check = Mage::helper("icecore")->hasSOAP();
         array_push($lines, array(
@@ -90,21 +59,22 @@ class Icepay_IceAdvanced_Helper_Data extends Mage_Core_Helper_Abstract {
                 'line' => $check["msg"],
                 'result' => ($check["val"]) ? "ok" : "err"));
         }
-        
+
         $adv_sql = Mage::getSingleton('iceadvanced/mysql4_iceAdvanced');
-        
+
         if ($adv_sql->getPMbyCode('afterpay')) {
             if (Mage::getModel('tax/config')->getAlgorithm() != Mage_Tax_Model_Calculation::CALC_UNIT_BASE)
                 array_push($lines, array(
-                'id' => "tax",
-                'line' => "In order to use Afterpay you must have set the Tax Calculation Method Based On Unit Price.",
-                'result' => "err"));     
+                    'id' => "tax",
+                    'line' => "In order to use Afterpay you must have set the Tax Calculation Method Based On Unit Price.",
+                    'result' => "err"));
         }
 
         return $lines;
     }
 
-    public function getPaymentmethodExtraSettings() {
+    public function getPaymentmethodExtraSettings()
+    {
         return array(
             "description",
             //"active_issuers",
@@ -116,12 +86,10 @@ class Icepay_IceAdvanced_Helper_Data extends Mage_Core_Helper_Abstract {
         );
     }
 
-    public function countStoredPaymentmethods($storeID) {
-
+    public function countStoredPaymentmethods($storeID)
+    {
         $adv_sql = Mage::getSingleton('iceadvanced/mysql4_iceAdvanced');
         $adv_sql->setScope($storeID);
-
-
 
         $count = $adv_sql->countPaymentMethods();
 
@@ -139,11 +107,10 @@ class Icepay_IceAdvanced_Helper_Data extends Mage_Core_Helper_Abstract {
         return $return;
     }
 
-    public function addIcons($obj, $isArray = false) {
-
+    public function addIcons($obj, $isArray = false)
+    {
         if ($isArray) {
             foreach ($obj as $key => $value) {
-                $issuerData = unserialize(urldecode($value["issuers"]));
                 $img = Mage::helper("icecore")->toIcon(Mage::helper("icecore")->cleanString($value["code"]));
                 $obj[$key]["Image"] = ($img) ? $img : $value["code"];
             }
@@ -157,11 +124,13 @@ class Icepay_IceAdvanced_Helper_Data extends Mage_Core_Helper_Abstract {
         return $obj;
     }
 
-    public function getIssuerArray($value) {
+    public function getIssuerArray($value)
+    {
         return unserialize(urldecode($value));
     }
 
-    protected function getValueForStore($val) {
+    protected function getValueForStore($val)
+    {
         $store = Mage::helper('icecore')->getStoreScopeID();
         return Mage::helper('icecore')->getConfigForStore($store, $val);
     }
