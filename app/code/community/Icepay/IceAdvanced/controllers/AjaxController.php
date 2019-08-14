@@ -13,7 +13,7 @@
  *  charged in accordance with the standard ICEPAY tariffs.
  * 
  */
-class Icepay_IceAdvanced_AjaxController extends Mage_Adminhtml_Controller_Action
+class Icepay_IceAdvanced_AjaxController extends Mage_Core_Controller_Front_Action
 {
 
     protected $webservice = null;
