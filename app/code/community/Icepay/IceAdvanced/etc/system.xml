@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <config>
     <sections>
         <icecore translate="label" module="icecore">

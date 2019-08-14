@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
+
 <config>
     <modules>
         <Icepay_IceAdvanced>
-            <version>1.2.11</version>
+            <version>1.1.9</version>
         </Icepay_IceAdvanced>
     </modules>
     <frontend>
@@ -52,7 +53,7 @@
             </custom_quote_process>
         </events>
     </frontend>
-
+    
     <global>
         <models>
             <iceadvanced>
@@ -130,10 +131,6 @@
                 </observers>
             </sales_order_payment_place_end>
         </events>
-
-        <secure_url>
-            <icepayadvanced_processing_pay>/icepayadvanced/processing/pay</icepayadvanced_processing_pay>
-        </secure_url>
     </global>
 
     <adminhtml>
@@ -146,17 +143,25 @@
                 </Icepay_IceAdvanced>
             </modules>
         </translate>
-    </adminhtml>
 
-    <admin>
-        <routers>
-            <adminhtml>
-                <args>
-                    <modules>
-                        <icepay_iceadvanced after="Mage_Adminhtml">Icepay_IceAdvanced_Adminhtml</icepay_iceadvanced>
-                    </modules>
-                </args>
-            </adminhtml>
-        </routers>
-    </admin>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <iceadvanced translate="title" module="iceadvanced">
+                                            <title>iceadvanced Settings</title>
+                                        </iceadvanced>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
 </config>

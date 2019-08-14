@@ -3,11 +3,12 @@
     "type": "magento-module",
     "license": "Commercial",
     "homepage": "",
-    "description": "Enables payments using payment service provider ICEPAY.",
+    "description": "Enables payments using payment service provider ICEPAY.
+www.icepay.com",
     "authors": [
     {
         "name": "ICEPAY",
-        "email": "info@icepay.com"
+        "email": "wouter.vantilburg@icepay.com"
     }
 ],
     "suggest": {

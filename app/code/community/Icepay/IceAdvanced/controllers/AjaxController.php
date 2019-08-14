@@ -13,8 +13,9 @@
  *  charged in accordance with the standard ICEPAY tariffs.
  * 
  */
-class Icepay_IceAdvanced_Adminhtml_Iceadvanced_AjaxController extends Mage_Adminhtml_Controller_Action
+class Icepay_IceAdvanced_AjaxController extends Mage_Adminhtml_Controller_Action
 {
+
     protected $webservice = null;
 
     public function iceWebservice()
@@ -22,15 +23,6 @@ class Icepay_IceAdvanced_Adminhtml_Iceadvanced_AjaxController extends Mage_Admin
         if ($this->webservice == null)
             $this->webservice = new Icepay_IceAdvanced_Model_Paymentmethods();
         return $this->webservice;
-    }
-
-    /**
-     * SUPEE-6285
-     * @see http://magento.stackexchange.com/a/73649/28266
-     */
-    protected function _isAllowed()
-    {
-        return true;
     }
 
     public function indexAction()
