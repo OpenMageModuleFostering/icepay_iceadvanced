@@ -25,16 +25,19 @@ class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Containe
     private $_advancedSQL = null;
     private $_coreSQL = null;
 
-    public function sales_quote_collect_totals_after(Varien_Event_Observer $observer) {
-
+    public function sales_quote_collect_totals_after(Varien_Event_Observer $observer) {        
         $paymentMethod = Mage::app()->getFrontController()->getRequest()->getParam('payment');
-
+        
         if (!isset($paymentMethod))
             return;
-
-        $paymentMethodCode = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode();
-        $paymentMethodTitle = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getTitle();
-
+      
+        try {
+            $paymentMethodCode = $observer->getEvent()->getQuote()->getPayment()->getMethodInstance()->getCode();
+            $paymentMethodTitle = $observer->getEvent()->getQuote()->getPayment()->getMethodInstance()->getTitle();
+        } catch (Exception $e) {
+            return;
+        }
+        
         if (substr($paymentMethodCode, 0, 10) != "icepayadv_")
             return;
 
