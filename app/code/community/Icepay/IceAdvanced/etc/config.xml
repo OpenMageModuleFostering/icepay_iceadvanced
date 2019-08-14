@@ -3,7 +3,7 @@
 <config>
     <modules>
         <Icepay_IceAdvanced>
-            <version>1.1.3</version>
+            <version>1.1.5</version>
         </Icepay_IceAdvanced>
     </modules>
     <frontend>
@@ -32,6 +32,17 @@
                 </Icepay_IceAdvanced>
             </modules>
         </translate>
+        <events>
+            <sales_quote_collect_totals_after>
+                <observers>
+                    <iceadvanced>
+                        <type>singleton</type>
+                        <class>iceadvanced/observer</class>
+                        <method>sales_quote_collect_totals_after</method>
+                    </iceadvanced>
+                </observers>
+            </sales_quote_collect_totals_after>
+        </events>
     </frontend>
     
     <global>
@@ -83,15 +94,6 @@
             </iceadvanced>
         </helpers>
         <events>
-            <sales_quote_collect_totals_after>
-                <observers>
-                    <iceadvanced>
-                        <type>singleton</type>
-                        <class>iceadvanced/observer</class>
-                        <method>sales_quote_collect_totals_after</method>
-                    </iceadvanced>
-                </observers>
-            </sales_quote_collect_totals_after>
             <model_save_before>
                 <observers>
                     <iceadvanced>

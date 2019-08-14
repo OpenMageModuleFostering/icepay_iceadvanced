@@ -71,11 +71,15 @@ class Icepay_IceAdvanced_Block_Adminhtml_Grid_PaymentMethods extends Mage_Adminh
 
         $this->setChild('add_button', $button);
 
+        if (version_compare(Mage::getVersion(), '1.7.0.0', '<')) {
+            $this->getLayout()->getBlock('head')->addItem('js_css', 'prototype/windows/themes/magento.css');
+        } else {
+            $this->getLayout()->getBlock('head')->addItem('skin_css', 'lib/prototype/windows/themes/magento.css');
+        }
+        
         $this->getLayout()
             ->getBlock('head')
-            ->addItem('js_css', 'prototype/windows/themes/default.css')
-            ->addItem('js_css', 'prototype/windows/themes/magento.css')//  <--- this one works pre magento 1.7
-            ->addItem('skin_css', 'lib/prototype/windows/themes/magento.css');// <--- for magento 1.7
+            ->addItem('js_css', 'prototype/windows/themes/default.css');
  
         return parent::_prepareLayout();
     }
