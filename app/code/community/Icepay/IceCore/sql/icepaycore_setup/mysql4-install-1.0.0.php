@@ -13,7 +13,7 @@ $conn->insertOnDuplicate($this->getTable('core/config_data'), array('path' => $n
 
 $installer->run("
 
-CREATE TABLE IF NOT EXISTS `{$installer->getTable('icepay_transactions')}` (
+CREATE TABLE IF NOT EXISTS `icepay_transactions` (
     `local_id` smallint(6) NOT NULL AUTO_INCREMENT,
     `order_id` varchar(36) NOT NULL DEFAULT '0',
     `model` varchar(32) NOT NULL,

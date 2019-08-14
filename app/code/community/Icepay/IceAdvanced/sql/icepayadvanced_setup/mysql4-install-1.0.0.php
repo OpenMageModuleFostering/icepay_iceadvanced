@@ -10,7 +10,7 @@ $conn->insertOnDuplicate($this->getTable('core/config_data'), array('path'  => $
 $conn->insertOnDuplicate($this->getTable('core/config_data'), array('path'  => $namespace.'/module/namespace',		'value'	=> $namespace), 		array('value'));
 
 $installer->run("
-CREATE TABLE IF NOT EXISTS `{$installer->getTable('icepay_pmdata')}` (
+CREATE TABLE IF NOT EXISTS `icepay_pmdata` (
   `pm_id` int(32) NOT NULL AUTO_INCREMENT,
   `pm_code` varchar(120) NOT NULL,
   PRIMARY KEY (`pm_id`),
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `{$installer->getTable('icepay_pmdata')}` (
   KEY `pm_code` (`pm_code`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `{$installer->getTable('icepay_issuerdata')}` (
+CREATE TABLE IF NOT EXISTS `icepay_issuerdata` (
   `config_id` int(32) NOT NULL AUTO_INCREMENT,
   `pm_code` varchar(32) NOT NULL,
   `store_scope_id` int(32) NOT NULL,
