@@ -1,91 +1,80 @@
-<?php $_htmlId      = $this->getElement()->getHtmlId() ?>
-<?php $_htmlClass   = $this->getElement()->getClass() ?>
-<?php $_htmlName    = $this->getElement()->getName() ?>
-
-
+<?php $_htmlId = $this->getElement()->getHtmlId() ?>
+<?php $_htmlClass = $this->getElement()->getClass() ?>
+<?php $_htmlName = $this->getElement()->getName() ?>
 
 <tr>
-    
     <td colspan="11" class="grid tier">
-	
-<table cellspacing="0" class="data border" id="modules_table" style="width:600px">
-        <col width="90" />
-        <col width="40" />
-        <col width="120" />
-        <col width="90" />
-        <col width="120" />
-        <thead>
-            <tr class="headings">
-                <th><?php echo Mage::helper('icecore')->__('Module') ?></th>
-                <th><?php echo Mage::helper('icecore')->__('Version') ?></th>
-                <th><?php echo Mage::helper('icecore')->__('Compatibility') ?></th>
-                <th><?php echo Mage::helper('icecore')->__('Active') ?></th>
-                <th><?php echo Mage::helper('icecore')->__('Serial') ?></th>
-            </tr>
-        </thead>
-        <tbody id="<?php echo $_htmlId ?>_container"></tbody>
-    </table>
-	
+        <table cellspacing="0" class="data border" id="modules_table" style="width:600px">
+            <col width="90" />
+            <col width="40" />
+            <col width="120" />
+            <col width="90" />
+            <col width="120" />
+            <thead>
+                <tr class="headings">
+                    <th><?php echo Mage::helper('icecore')->__('Module') ?></th>
+                    <th><?php echo Mage::helper('icecore')->__('Version') ?></th>
+                    <th><?php echo Mage::helper('icecore')->__('Compatibility') ?></th>
+                    <th><?php echo Mage::helper('icecore')->__('Active') ?></th>
+                </tr>
+            </thead>
+            <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+        </table>
 
-<script type="text/javascript">
-//<![CDATA[
-var ICEPAYModuleRowTemplate = '<tr>'
-    + '<td>'
-    + '{{module_name}}</td>'
-    + '<td>{{module_version}}</td>'
-    + '<td class="{{module_compatible}}">{{module_compatibility}}</td>'
-    + '<td><select class="<?php echo $_htmlClass ?>" name="groups[{{module_namespace}}][fields][active][value]" id="icepay_module_row_{{index}}_enabled" {{module_active_switch}}>'
-    + '<option value="1"><?php echo Mage::helper("icecore")->__("Enabled")?></option>'
-    + '<option value="0"><?php echo Mage::helper("icecore")->__("Disabled")?></option>'
-    + '</select></td>'
-    + '<td><input type="text" {{module_serialreq}} name="groups[{{module_namespace}}][fields][serial][value]" value="{{module_serial}}" id="icepay_module_row_{{index}}_serial" style="width:120px;"/></td>'
-    + '</tr>';
+        <script type="text/javascript">
+            //<![CDATA[
+            var ICEPAYModuleRowTemplate = '<tr>'
+                    + '<td>'
+                    + '{{module_name}}</td>'
+                    + '<td>{{module_version}}</td>'
+                    + '<td class="{{module_compatible}}">{{module_compatibility}}</td>'
+                    + '<td><select class="<?php echo $_htmlClass ?>" name="groups[{{module_namespace}}][fields][active][value]" id="icepay_module_row_{{index}}_enabled" {{module_active_switch}}>'
+                    + '<option value="1"><?php echo Mage::helper("icecore")->__("Enabled") ?></option>'
+                    + '<option value="0"><?php echo Mage::helper("icecore")->__("Disabled") ?></option>'
+                    + '</select></td>'
+                    + '</tr>';
 
 
-var ICEPAYControl = {
-    template: new Template(ICEPAYModuleRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
-    itemsCount: 0,
-    addItem : function () {
+            var ICEPAYControl = {
+                template: new Template(ICEPAYModuleRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+                itemsCount: 0,
+                addItem: function() {
 
-        var data = {
-            module_name: '',
-            module_version: '',
-            module_compatibility: '',
-            module_active: '',
-            module_serial: '',
-			module_compatible: '',
-			module_serialreq: '',
-			module_namespace: '',
-			module_active_switch: '',
-            index: this.itemsCount++
-        };
+                    var data = {
+                        module_name: '',
+                        module_version: '',
+                        module_compatibility: '',
+                        module_active: '',
+                        module_serial: '',
+                        module_compatible: '',
+                        module_serialreq: '',
+                        module_namespace: '',
+                        module_active_switch: '',
+                        index: this.itemsCount++
+                    };
 
-		data.module_name 			= arguments[0];
-		data.module_version      	= arguments[1];
-		data.module_compatibility   = arguments[2];
-		data.module_active      	= arguments[3];
-		data.module_serial      	= arguments[4];
-		data.module_compatible		= arguments[5];
-		data.module_serialreq		= arguments[6];
-		data.module_namespace		= arguments[7];
-		data.module_active_switch	= (data.module_namespace == "icecore")?"disabled":"";
-        
-        Element.insert($('<?php echo $_htmlId ?>_container'), {
-		    bottom : this.template.evaluate(data)
-        });
-		
-        $('icepay_module_row_' + data.index + '_enabled').selectedIndex = (data.module_active=="1")?0:1;
+                    data.module_name = arguments[0];
+                    data.module_version = arguments[1];
+                    data.module_compatibility = arguments[2];
+                    data.module_active = arguments[3];
+                    data.module_serial = arguments[4];
+                    data.module_compatible = arguments[5];
+                    data.module_serialreq = arguments[6];
+                    data.module_namespace = arguments[7];
+                    data.module_active_switch = (data.module_namespace == "icecore") ? "disabled" : "";
+
+                    Element.insert($('<?php echo $_htmlId ?>_container'), {
+                        bottom: this.template.evaluate(data)
+                    });
+
+                    $('icepay_module_row_' + data.index + '_enabled').selectedIndex = (data.module_active == "1") ? 0 : 1;
 
 
-    },
-};
+                },
+            };
 <?php foreach ($this->getModules() as $_item): ?>
-ICEPAYControl.addItem('<?php echo $_item['name'] ?>', '<?php echo $_item['version'] ?>', '<?php echo $_item['compatible'] ?>', '<?php echo $_item['active'] ?>', '<?php echo (($_item['serialreq']==0)?"N/A":$_item['serial']) ?>', '<?php echo ((Mage::helper("icecore")->isCompatible($_item['compatibleFrom'],$_item['compatibleTo']))?"":"icemodule_incompatible") ?>','<?php echo (($_item['serialreq']==0)?"disabled":"") ?>','<?php echo ($_item['namespace']) ?>');
+                ICEPAYControl.addItem('<?php echo $_item['name'] ?>', '<?php echo $_item['version'] ?>', '<?php echo $_item['compatible'] ?>', '<?php echo $_item['active'] ?>', '<?php echo (($_item['serialreq'] == 0) ? "N/A" : $_item['serial']) ?>', '<?php echo ((Mage::helper("icecore")->isCompatible($_item['compatibleFrom'], $_item['compatibleTo'])) ? "" : "icemodule_incompatible") ?>', '<?php echo (($_item['serialreq'] == 0) ? "disabled" : "") ?>', '<?php echo ($_item['namespace']) ?>');
 <?php endforeach; ?>
-
-
-
-//]]>
-</script>
-
-</td></tr>
+            //]]>
+        </script>
+    </td></tr>

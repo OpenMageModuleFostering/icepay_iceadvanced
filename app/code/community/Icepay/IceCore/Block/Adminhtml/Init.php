@@ -13,33 +13,30 @@
  *  charged in accordance with the standard ICEPAY tariffs.
  * 
  */
- 
-class Icepay_IceCore_Block_Adminhtml_Init
-	extends Mage_Adminhtml_Block_System_Config_Form_Field
-{
+class Icepay_IceCore_Block_Adminhtml_Init extends Mage_Adminhtml_Block_System_Config_Form_Field {
 
-	protected function _prepareLayout()
+    protected function _prepareLayout()
     {
-		/* General pages CSS */
-		$this->getLayout()
-			->getBlock('head')
-			->addCss('icepay/general.css');
-		
-		/* ADMIN page CSS */
+        /* General pages CSS */
+        $this->getLayout()
+                ->getBlock('head')
+                ->addCss('icepay/general.css');
+
+        /* ADMIN page CSS */
         if (Mage::helper('icecore')->isAdminPage()) {
             $this->getLayout()
-                ->getBlock('head')
-                ->addCss('icepay/admin.css');
+                    ->getBlock('head')
+                    ->addCss('icepay/admin.css');
         }
-		
+
         parent::_prepareLayout();
     }
 
     /* Don't use a template */
-    public function setTemplate($template) {
+
+    public function setTemplate($template)
+    {
         return "";
     }
-	
 
-  
 }

@@ -17,7 +17,7 @@
 "URL for Postback/Notify","Postback URL"
 "Auto invoice","Auto invoice"
 "Description on transaction statement of customer","Description on transaction statement of customer"
-"Please read the core manual","<a href="http://www.icepay.com/downloads/pdf/manuals/magento/icepay-manual-magento-basic.pdf" target="blank" class="btn-manual"></a> <a href="http://www.icepay.nl/webshop-modules/ideal-voor-magento-basic" target="blank" class="btn-movie"></a><BR/><BR/><BR/><span class="manual-comment">Need help? View our manual or install video!</span>
+"Please read the core manual","<a href='http://www.icepay.com/downloads/pdf/manuals/magento/icepay-manual-magento-basic.pdf' target="blank" class="btn-manual"></a> <a href="http://www.icepay.nl/webshop-modules/ideal-voor-magento-basic" target="blank" class="btn-movie"></a><BR/><BR/><BR/><span class="manual-comment">Need help? View our manual or install video!</span>
 
 /*comments*/
 "Step 1.","Step 1."

@@ -13,15 +13,16 @@
  *  charged in accordance with the standard ICEPAY tariffs.
  * 
  */
-
 class Icepay_IceCore_Block_Adminhtml_GenerateURL extends Mage_Adminhtml_Block_System_Config_Form_Field {
 
-    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element) {
+    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
+    {
         $this->setElement($element);
         return $this->enCase(Mage::helper("icecore")->getStoreFrontURL($this->setAction($this->getElement()->getName())));
     }
 
-    protected function setAction($elementName) {
+    protected function setAction($elementName)
+    {
         switch ($elementName) {
             case "groups[settings][fields][merchant_url_ok][value]": return "result";
             case "groups[settings][fields][merchant_url_err][value]": return "result";
@@ -29,7 +30,8 @@ class Icepay_IceCore_Block_Adminhtml_GenerateURL extends Mage_Adminhtml_Block_Sy
         }
     }
 
-    protected function enCase($str) {
+    protected function enCase($str)
+    {
         return '<input type="text" name="" class="icepay_url_form" value="' . $str . '"/>';
     }
 
