@@ -9,7 +9,7 @@
     </tabs> 
     <sections>
         <icecore translate="label comment" module="icecore">
-            <label>ICEPAY Advanced</label>
+            <label>Advanced</label>
             <tab>icepay</tab>			
             <frontend_type>text</frontend_type>
             <sort_order>360</sort_order>
@@ -174,15 +174,6 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                         </transaction_descr>
-                        <iprange translate="label">
-                            <label>(Optional) Custom IP Range for IP Check for Postbackk</label>
-                            <comment>For example a proxy: 1.222.333.444-100.222.333.444 For multiple ranges use a , seperator: 2.2.2.2-5.5.5.5,8.8.8.8-9.9.9.9</comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>40</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </iprange>
                     </fields>
                 </core_options>
             </groups>

@@ -18,8 +18,8 @@ class Icepay_IceAdvanced_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /* Install values */
 
-    public $title = 'ICEPAY Advanced';
-    public $version = '1.2.6';
+    public $title = 'Advanced';
+    public $version = '1.2.7';
     public $id = 'ADV';
     public $fingerprint = '7f4de76ecbf7d847caeba64c42938a6a05821c4f';
     public $compatibility_oldest_version = '1.5.0.0';

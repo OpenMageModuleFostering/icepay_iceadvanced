@@ -34,7 +34,21 @@ class Icepay_IceCore_Model_Webservice_Core {
         $this->merchantID = (int) $merchantID;
         $this->secretCode = (string) $secretCode;
 
-        $this->client = new SoapClient($this->serviceURL, array('cache_wsdl' => 'WSDL_CACHE_NONE', 'encoding' => 'UTF-8'));
+        $sslContext = array(
+            'ssl' => array(
+                'cafile' => 'thawte.pem',
+                'allow_self_signed' => false,
+                'verify_peer' => true
+            )
+        );
+
+        $soapArguments = array(
+            'encoding' => 'UTF-8',
+            'cache_wsdl' => 'WSDL_CACHE_NONE',
+            'stream_context' => $sslContext
+        );
+
+        $this->client = new SoapClient($this->serviceURL, $soapArguments);
     }
 
     /**

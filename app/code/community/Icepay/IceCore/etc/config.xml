@@ -3,7 +3,7 @@
 <config>
     <modules>
         <Icepay_IceCore>
-            <version>1.2.6</version>
+            <version>1.2.7</version>
         </Icepay_IceCore>
     </modules>
     <frontend>
