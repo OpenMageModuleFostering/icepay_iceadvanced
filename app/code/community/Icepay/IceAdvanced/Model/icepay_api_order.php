@@ -7,7 +7,6 @@
  *  
  * @version 1.0.0
  * 
- * @package API_Webservice_Pay_Order
  * @author Wouter van Tilburg 
  * @author Olaf Abbenhuis 
  * @copyright Copyright (c) 2011-2012, ICEPAY  
@@ -141,28 +140,9 @@ class Icepay_Order_Helper {
  * 
  * The product object contains all information about the customers address
  * You can add as many products as you want, just remember that the total amount for the products must match the total amount of the Icepay Payment Object
- * 
- * Icepay_Order_Product may be used the following way: 
- * <pre>
- * $product = Icepay_Order_Product::create()
- *                  ->setProductID('1')
- *                  ->setProductName('iPhone')
- *                  ->setDescription('Test Description')
- *                  ->setQuantity('1')
- *                  ->setUnitPrice('200')
- *                  ->setVATCategory(Icepay_Order_VAT::getCategoryForPercentage(21))
- * </pre>
- * 
- * You add the product by using the addProduct method from {@link Icepay_Order} 
- * <pre>
- * Icepay_Order::getInstance()->addProduct($product);
- * </pre>
- *   
- * @see Icepay_Order->addProduct() 
- * 
+ *  
  * @version 1.0.0
  * 
- * @package API_Webservice_Pay_Order
  * @author Wouter van Tilburg 
  * @author Olaf Abbenhuis
  * @copyright Copyright (c) 2011-2012, ICEPAY
@@ -287,34 +267,10 @@ class Icepay_Order_Product {
 /**
  * Icepay_Order_Address
  * 
- * The address class contains all information about the consumer's address
- * 
- * Icepay_Order_Address may be used the following way: 
- * <pre>
- * $address = Icepay_Order_Address::create()
- *                  ->setInitials('')
- *                  ->setPrefix('Dhr.')
- *                  ->setLastName('van Test')
- *                  ->setStreet('Zandstraat')
- *                  ->setHouseNumber('10')
- *                  ->setHouseNumberAddition('')
- *                  ->setZipCode('2500AA')
- *                  ->setCity('Amsterdam')
- *                  ->setCountry('NL')
- * </pre>
- * 
- * You can set the adress by either using the setBillingAddress or setShippingAddress method from {@link Icepay_Order} 
- * <pre>
- * Icepay_Order::getInstance()->setBillingAddress($address);
- * Icepay_Order::getInstance()->setShippingAddress($address);
- * </pre>
- * 
- * @see Icepay_Order->setBillingAddress()
- * @see Icepay_Order->setShippingAddress()
+ * The address class contains all information about the consumer's address 
  * 
  * @version 1.0.0
  * 
- * @package API_Webservice_Pay_Order
  * @author Wouter van Tilburg 
  * @author Olaf Abbenhuis
  * @copyright Copyright (c) 2011-2012, ICEPAY
@@ -495,25 +451,9 @@ class Icepay_Order_Address {
  * Icepay_Order_Consumer
  * 
  * The consumer class contains all information about the consumer
- * 
- * Icepay_Order_Consumer may be used the following way: 
- * <pre>
- * $consumer = Icepay_Order_Consumer::create()
- *      ->setConsumerID('1')
- *      ->setEmail('test@test.com')
- *      ->setPhone('0612345678')
- * </pre>
- * 
- * You can set the adress by using setConsumer method from {@link Icepay_Order} 
- * <pre>
- * Icepay_Order::getInstance()->setConsumer($consumer);
- * </pre>
- * 
- * @see Icepay_Order->setConsumer()
- *
+ *  
  * @version 1.0.0 
  * 
- * @package API_Webservice_Pay_Order
  * @author Wouter van Tilburg
  * @author Olaf Abbenhuis
  * @copyright Copyright (c) 2011-2012, ICEPAY
@@ -594,71 +534,8 @@ class Icepay_Order_Consumer {
  * 
  * Contains all the order information and can generate it into XML for the extended checkout.
  * 
- * Classes that are used:
- * - {@link Icepay_Order_Consumer}
- * - {@link Icepay_Order_Address}
- * - {@link Icepay_Order_Product}
- * 
- * A full example of how the Order Class works for the extendedCheckout with the classes above:
- * <pre>
- * Icepay_Order::getInstance()     
- *      ->setConsumer(
- *          {@link Icepay_Order_Consumer}::create()
- *              ->setConsumerID('1')
- *              ->setEmail('test@test.com')
- *              ->setPhone('0612345678')
- *      )      
- *      ->setShippingAddress(
- *          {@link Icepay_Order_Address}::create()
- *              ->setInitials('')
- *              ->setPrefix('Dhr.')
- *              ->setLastName('van Test')
- *              ->setStreet('Zandstraat')
- *              ->setHouseNumber('10')
- *              ->setHouseNumberAddition('')
- *              ->setZipCode('2500AA')
- *              ->setCity('Amsterdam')
- *              ->setCountry('NL')
- *      )     
- *      ->setBillingAddress(
- *          {@link Icepay_Order_Address}::create()
- *              ->setInitials('')
- *              ->setPrefix('Dhr.')
- *              ->setLastName('van Test')
- *              ->setStreet('Zandstraat')
- *              ->setHouseNumber('10')
- *              ->setHouseNumberAddition('')
- *              ->setZipCode('2500AA')
- *              ->setCity('Amsterdam')
- *              ->setCountry('NL')
- *      )     
- *      ->addProduct({@link Icepay_Order_Product}::create()
- *              ->setProductID('1')
- *              ->setProductName('iPhone 4')
- *              ->setDescription('Test Description')
- *              ->setQuantity('2')
- *              ->setUnitPrice('20000') // Amount must be in cents
- *              ->setVATCategory(Icepay_Order_VAT::getCategoryForPercentage(21))
- *       )
- *       ->addProduct({@link Icepay_Order_Product}::create()
- *              ->setProductID('1')
- *              ->setProductName('iPhone 4S')
- *              ->setDescription('Test Description')
- *              ->setQuantity('1')
- *              ->setUnitPrice('90000') // Amount must be in cents
- *              ->setVATCategory(Icepay_Order_VAT::getCategoryForPercentage(21))
- *       )
- *       ->setShippingCosts(200);
- * </pre>
- * 
- * 
- * @see Icepay_Order_Consumer
- * @see Icepay_Order_Address
- * @see Icepay_Order_Product
- * 
  * @version 1.0.0
  * 
- * @package API_Webservice_Pay_Order
  * @author Wouter van Tilburg 
  * @author Olaf Abbenhuis 
  * @copyright Copyright (c) 2011-2012, ICEPAY
@@ -670,9 +547,7 @@ class Icepay_Order {
     private $_addressesNode;
     private $_productsNode;
     private static $instance;
-    
-    private $_debug = false;
-    
+    private $_debug = true;
     public $_data = Array();
 
     public function setData($id, $obj) {
@@ -686,7 +561,7 @@ class Icepay_Order {
      * @param obj Object containing the Icepay_Order_Consumer class
      * @return \Icepay_Order
      */
-    public function setConsumer($obj) {
+    public function setConsumer(Icepay_Order_Consumer $obj) {
         $this->setData("consumer", $obj);
         return $this;
     }
@@ -698,7 +573,7 @@ class Icepay_Order {
      * @param obj Object containing the Icepay_Order_Address class
      * @return \Icepay_Order
      */
-    public function setShippingAddress($obj) {
+    public function setShippingAddress(Icepay_Order_Address $obj) {
         $this->setData("shippingAddress", $obj);
         return $this;
     }
@@ -710,7 +585,7 @@ class Icepay_Order {
      * @param obj Object containing the Icepay_Order_Address class
      * @return \Icepay_Order
      */
-    public function setBillingAddress($obj) {
+    public function setBillingAddress(Icepay_Order_Address $obj) {
         $this->setData("billingAddress", $obj);
         return $this;
     }
@@ -722,7 +597,7 @@ class Icepay_Order {
      * @param obj object containing the Icepay_Order_Product class
      * @return \Icepay_Order
      */
-    public function addProduct($obj) {
+    public function addProduct(Icepay_Order_Product $obj) {
         if (!isset($this->_data["products"]))
             $this->_data["products"] = Array();
         array_push($this->_data["products"], $obj);
@@ -846,6 +721,12 @@ class Icepay_Order {
             $this->array_to_xml($product, $productNode);
         }
 
+        if ($this->_debug == true) {
+            header("Content-type: text/xml");
+            echo $this->_orderData->asXML();
+            exit;
+        }
+
         return $this->_orderData->asXML();
     }
 
@@ -861,7 +742,7 @@ class Icepay_Order_VAT {
 
     private static $categories = array();
 
-    public function setDefaultCategories() {
+    public static function setDefaultCategories() {
         $ranges = array(
             'zero' => 0,
             'reduced-low' => array('1', '6'),

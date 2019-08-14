@@ -83,34 +83,48 @@ class Icepay_IceAdvanced_Model_Checkout_Standard extends Mage_Payment_Model_Meth
     }
 
     public function isAvailable($quote = null) {
-        $this->_quote = $quote;        
+        $this->_quote = $quote;
+        
+        if (strtoupper($this->getConfigData('pm_code')) == 'AFTERPAY') {            
+            if (!$this->checkEqualBillingAndShippingCountry($quote))
+                return false;            
+            
+            if (!$this->checkTaxCalculationUnitBase())
+                return false;            
+        }
 
-        $this->checkEqualBillingAndShippingCountry($quote);
-       
         if ($this->getActive() && parent::isAvailable($quote))
             return true;
+        
         return false;
     }
-    
-    private function checkEqualBillingAndShippingCountry($quote) {    
-        $billingCountry = $quote->getBillingAddress()->getCountry();
-        $shippingCountry = $quote->getShippingAddress()->getCountry();
+
+    private function checkTaxCalculationUnitBase() {
+        if (Mage::getModel('tax/config')->getAlgorithm() != Mage_Tax_Model_Calculation::CALC_UNIT_BASE)
+            return false;
         
-        if (isset($billingCountry) && isset($shippingCountry)) {  
-            if ($this->getConfigData('pm_code') == 'afterpay') {                
-                if ($billingCountry != $shippingCountry) {
-                    return false;
-                }                    
-            }
-        }                     
+        return true;
     }
 
-    public function getActive() {         
+    private function checkEqualBillingAndShippingCountry($quote) {
+        $billingCountry = $quote->getBillingAddress()->getCountry();
+        $shippingCountry = $quote->getShippingAddress()->getCountry();
+
+        if (isset($billingCountry) && isset($shippingCountry)) {
+            if ($billingCountry != $shippingCountry) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    public function getActive() {
         if ($this->getConfigData("active") != 1)
             return false;
         if ($this->getConfigData("active_issuers") == "")
             return false;
-        
+
         return $this->coreSQL()->isActive(Mage::helper("iceadvanced")->section);
     }
 
@@ -164,19 +178,18 @@ class Icepay_IceAdvanced_Model_Checkout_Standard extends Mage_Payment_Model_Meth
         return $filtered_issuers;
     }
 
-    public function filterByAmountForCountry($issuers, $country) {        
-        /*
-        if (Mage::app()->getFrontController()->getRequest()->getParam('section', false) == $this->section) {
+    public function filterByAmountForCountry($issuers, $country) {
+        $grandTotal = Mage::getModel('checkout/cart')->getQuote()->getGrandTotal();
+
+        // Order is being created from admin
+        if (is_null($grandTotal)) {
             return $issuers;
         }
-         * 
-         */
 
-        $grandTotal = Mage::getModel('checkout/cart')->getQuote()->getGrandTotal();
         $grandTotal = $grandTotal * 100;
 
         $filtered_issuers = array();
-        
+
         foreach ($issuers as $key => $issuer) {
             $issuerMinimum = unserialize($issuer['issuer_minimum']);
             $issuerMaximum = unserialize($issuer['issuer_maximum']);

@@ -59,6 +59,16 @@ class Icepay_IceAdvanced_Model_Observer extends Mage_Payment_Block_Form_Containe
                     $message = "Your postal code is incorrect, must be in 11111 format.";
                 break;
         }
+        
+        $phoneNumber = Mage::getSingleton('checkout/session')->getQuote()->getBillingAddress()->getTelephone();
+        
+        switch (Mage::getSingleton('checkout/session')->getQuote()->getBillingAddress()->getCountry()) {
+            case 'NL':
+                if (!preg_match('/^\(?\+?\d{1,3}\)?\s?-?\s?[\d\s]*$/', $phoneNumber) OR strlen($phoneNumber) < 10) {
+                    $message = "Your phonenumber is incorrect.";
+                }
+            break;
+        }
 
         if ($message) {
             Mage::getSingleton('checkout/session')->addError($message);

@@ -19,7 +19,7 @@ class Icepay_IceCore_Helper_Data extends Mage_Core_Helper_Abstract
 
 	/* Install values */
 	public $title = "Core";
-	public $version = "1.1.2"; 
+	public $version = "1.1.3"; 
         public $id = "003";
 	public $fingerprint = "003";
 	public $compatibility_oldest_version = "1.5.0.0";

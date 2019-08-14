@@ -112,7 +112,7 @@ class Icepay_IceAdvanced_Model_Mysql4_IceAdvanced extends Mage_Core_Model_Mysql4
         return $pm['pm_id'];
     }
 
-    private function getPMbyCode($code){
+    public function getPMbyCode($code){
         $select = $this->doSQL()
             ->select()
             ->from($this->getTable("iceadvanced/{$this->pm_table}"), array('pm_id'))

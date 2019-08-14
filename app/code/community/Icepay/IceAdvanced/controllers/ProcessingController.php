@@ -29,7 +29,7 @@ class Icepay_IceAdvanced_ProcessingController extends Mage_Core_Controller_Front
             Mage::getSingleton('checkout/session')->setErrorMessage(sprintf($this->__("The payment provider has returned the following error message: %s"),$result));
             parent::_redirect('checkout/onepage/failure');
         } else {   
-            $checkoutResult = ($result['CheckoutExtendedResult']) ? $result['CheckoutExtendedResult'] : $result['CheckoutResult'];
+            $checkoutResult = (isset($result['CheckoutExtendedResult'])) ? $result['CheckoutExtendedResult'] : $result['CheckoutResult'];
             
             $this->getResponse()->setBody($this->__("Redirecting"))->setRedirect($checkoutResult->PaymentScreenURL);
         }
