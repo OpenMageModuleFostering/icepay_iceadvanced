@@ -9,7 +9,7 @@
     </tabs> 
     <sections>
         <icecore translate="label comment" module="icecore">
-            <label>Advanced</label>
+            <label>ICEPAY Advanced</label>
             <tab>icepay</tab>			
             <frontend_type>text</frontend_type>
             <sort_order>360</sort_order>

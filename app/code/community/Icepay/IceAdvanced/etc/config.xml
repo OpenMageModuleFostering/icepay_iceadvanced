@@ -3,7 +3,7 @@
 <config>
     <modules>
         <Icepay_IceAdvanced>
-            <version>1.2.5</version>
+            <version>1.2.6</version>
         </Icepay_IceAdvanced>
     </modules>
     <frontend>
@@ -164,4 +164,16 @@
             </resources>
         </acl>
     </adminhtml>
+    
+    <admin>
+        <routers>
+            <iceadvanced>
+                <use>admin</use>
+                <args>
+                    <module>Icepay_IceAdvanced</module>
+                    <frontName>icepayadvanced</frontName>
+                </args>
+            </iceadvanced>
+        </routers>
+    </admin>
 </config>

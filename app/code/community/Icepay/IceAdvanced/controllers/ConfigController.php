@@ -14,8 +14,17 @@
  * 
  */
 
-class Icepay_IceAdvanced_ConfigController extends Mage_Core_Controller_Front_Action {
+class Icepay_IceAdvanced_ConfigController extends Mage_Adminhtml_Controller_Action {
 
+
+    /**
+     * SUPEE-6285
+     * @see http://magento.stackexchange.com/a/73649/28266
+     */
+    protected function _isAllowed()
+    {
+        return true;
+    }
 
     public function indexAction() {
         
