@@ -120,16 +120,14 @@ class Icepay_Order_Helper {
     }
 
     private static function explodeStreetAddress($streetAddress) {
-        $pattern = '#^([a-z0-9 [:punct:]\']*) ([0-9]{1,5})([a-z0-9 \-/]{0,})$#i';
+        $pattern = '#^(.+\D+){1} ([0-9]{1,})\s?([\s\/]?[0-9]{0,}?[a-z]{0,}?)?$#i';
 
         $aMatch = array();
 
         if (preg_match($pattern, $streetAddress, $aMatch)) {
-            array_shift($aMatch);
-
-            self::$street = array_shift($aMatch);
-            self::$houseNumber = array_shift($aMatch);
-            self::$houseNumberAddition = array_shift($aMatch);
+            self::$street = utf8_decode($aMatch[1]);
+            self::$houseNumber = utf8_decode($aMatch[2]);
+            self::$houseNumberAddition = utf8_decode($aMatch[3]);
         }
     }
 
@@ -309,7 +307,7 @@ class Icepay_Order_Address {
         if (empty($initials))
             throw new Exception('Initials must be set and cannot be empty.');
 
-        $this->initials = trim($initials);
+        $this->initials = trim(utf8_decode($initials));
 
         return $this;
     }
@@ -323,7 +321,7 @@ class Icepay_Order_Address {
      * @throws Exception when empty
      */
     public function setPrefix($prefix) {
-        $this->prefix = trim($prefix);
+        $this->prefix = trim(utf8_decode($prefix));
 
         return $this;
     }
@@ -340,7 +338,7 @@ class Icepay_Order_Address {
         if (empty($lastName))
             throw new Exception('Lastname must be set and cannot be empty.');
 
-        $this->lastName = trim($lastName);
+        $this->lastName = trim(utf8_decode($lastName));
 
         return $this;
     }
