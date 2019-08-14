@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <config>
     <tabs>
         <icepay translate="label" module="icecore">
