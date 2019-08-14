@@ -29,6 +29,7 @@ class Icepay_IceCore_Model_Config
         const STATUS_SUCCESS        = "OK";
         const STATUS_REFUND         = "REFUND";
         const STATUS_CHARGEBACK     = "CBACK";
+        const STATUS_AUTH           = "AUTHORIZED";
         const STATUS_VERSION_CHECK  = "VCHECK";
 
         const STATUS_MAGENTO_NEW            = "icecore_new";
@@ -37,6 +38,7 @@ class Icepay_IceCore_Model_Config
         const STATUS_MAGENTO_SUCCESS        = "icecore_ok";
         const STATUS_MAGENTO_REFUND         = "icecore_refund";
         const STATUS_MAGENTO_CHARGEBACK     = "icecore_cback";
+        const STATUS_MAGENTO_AUTHORIZED     = "icecore_open";
 
 	
 }

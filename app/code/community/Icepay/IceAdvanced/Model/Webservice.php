@@ -42,7 +42,7 @@ extends Icepay_IceCore_Model_Icepay_Webservice_Api {
         $obj->MerchantID = $this->getMerchantID();
         $obj->Timestamp = $this->getTimeStamp();
         $obj->Checksum = $this->generateChecksum($obj);
-
+        
         return $this->client->GetMyPaymentMethods(array('request'=>$obj));
     }
 

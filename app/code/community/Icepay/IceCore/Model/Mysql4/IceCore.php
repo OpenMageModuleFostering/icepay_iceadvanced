@@ -81,6 +81,7 @@ class Icepay_IceCore_Model_Mysql4_IceCore extends Mage_Core_Model_Mysql4_Abstrac
                         ->where(new Zend_Db_Expr("path LIKE 'ice%module/" . $unique . "'"))
                         ->order('path');
         $data = $conn->fetchAll($select);
+        
         return $data;
     }
 
@@ -100,6 +101,7 @@ class Icepay_IceCore_Model_Mysql4_IceCore extends Mage_Core_Model_Mysql4_Abstrac
         foreach($this->modules as $module){
             if ($module["serialreq"] == "1" && $module["active"] == "1") $str.= $module["id"];
         }
+
         return $str;
     }
 

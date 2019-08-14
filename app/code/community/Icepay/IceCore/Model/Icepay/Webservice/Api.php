@@ -108,12 +108,11 @@ class Icepay_IceCore_Model_Icepay_Webservice_Api {
 		$obj->Reference		= $reference;
 		$obj->URLCompleted	= $URLCompleted;
 		$obj->URLError		= $URLError;
-
-
+                $obj->XML               = Icepay_Order::getInstance()->createXML();
 		// ------------------------------------------------
 		$obj->Checksum		= $this->generateChecksum($obj);
-
-                return (array)$this->client->Checkout(array('request'=>$obj));
+                
+                return (array)$this->client->CheckoutExtended(array('request'=>$obj));
 	}
 
 	public function getPayment($id){

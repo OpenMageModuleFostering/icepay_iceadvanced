@@ -21,15 +21,15 @@ class Icepay_IceAdvanced_ProcessingController extends Mage_Core_Controller_Front
         $this->renderLayout();
     }
 
-    public function payAction() {
+    public function payAction() {        
         $pay = Mage::getModel('iceadvanced/pay');
         $result = $pay->getCheckoutResult();
 
         if (!is_array($result)){
             Mage::getSingleton('checkout/session')->setErrorMessage(sprintf($this->__("The payment provider has returned the following error message: %s"),$result));
             parent::_redirect('checkout/onepage/failure');
-        } else {
-            $this->getResponse()->setBody($this->__("Redirecting"))->setRedirect($result['CheckoutResult']->PaymentScreenURL);
+        } else {            
+            $this->getResponse()->setBody($this->__("Redirecting"))->setRedirect($result['CheckoutExtendedResult']->PaymentScreenURL);
         }
     }
 

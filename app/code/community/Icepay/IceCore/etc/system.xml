@@ -17,7 +17,7 @@
                 <settings translate="label comment">
                     <label>Set-up configuration</label>
                     <comment>This configuration section is for implementing ICEPAY, please do not change these settings after saving.</comment>
-                    <expanded>0</expanded>
+                    <expanded>1</expanded>
                     <frontend_type>text</frontend_type>
                     <sort_order>0</sort_order>
                     <show_in_default>1</show_in_default>
