@@ -14,7 +14,7 @@
  * 
  */
 
-class Icepay_IceAdvanced_ConfigController extends Mage_Adminhtml_Controller_Action {
+class Icepay_IceAdvanced_ConfigController extends Mage_Core_Controller_Front_Action {
 
 
     public function indexAction() {
