@@ -1,5 +1,5 @@
 /*adminhtml*/
-"Please read the advanced manual","<a href='http://www.icepay.com/downloads/pdf/manuals/magento/icepay-manual-magento-advanced.pdf' target="blank" class="btn-manual"></a> <a href="http://www.icepay.nl/webshop-modules/ideal-voor-magento-advanced" target="blank" class="btn-movie"></a><BR/><BR/><BR/><span class="manual-comment">Need help? View our manual or install video!</span>
+"Please read the advanced manual","<a href="http://www.icepay.com/downloads/pdf/manuals/magento/icepay-manual-magento-advanced.pdf" target="blank" class="btn-manual"></a> <a href="http://www.icepay.nl/webshop-modules/ideal-voor-magento-advanced" target="blank" class="btn-movie"></a><BR/><BR/><BR/><span class="manual-comment">Need help? View our manual or install video!</span>
 "Paymentmethods","Paymentmethods"
 "Filter paymentmethods on customer billing country","Filter paymentmethods on customer billing country"
 "Configure ICEPAY paymentmethods [STORE VIEW]","Configure ICEPAY paymentmethods [STORE VIEW]"

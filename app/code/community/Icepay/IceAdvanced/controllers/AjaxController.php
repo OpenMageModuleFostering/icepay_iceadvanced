@@ -19,7 +19,7 @@ class Icepay_IceAdvanced_AjaxController extends Mage_Adminhtml_Controller_Action
     protected $webservice = null;
 
     public function iceWebservice() {
-        if ($this->webservice == null) $this->webservice = new Icepay_IceAdvanced_Model_Paymentmethods();
+        if ($this->webservice == null) $this->webservice = new Icepay_IceAdvanced_Model_Webservice();
         return $this->webservice;
     }
 
@@ -29,7 +29,8 @@ class Icepay_IceAdvanced_AjaxController extends Mage_Adminhtml_Controller_Action
     }
 
     public function get_paymentmethodsAction() {
-        $this->getResponse()->setBody(Zend_Json::encode($this->iceWebservice()->retrieveAdminGrid($this->getRequest()->get("store"))));
+        $this->iceWebservice()->setScopeID($this->getRequest()->get("store"));
+        $this->getResponse()->setBody(Zend_Json::encode($this->iceWebservice()->retrieveAdminGrid()));
     }
     
     public function save_paymentmethodAction() {

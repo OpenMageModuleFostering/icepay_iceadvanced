@@ -13,55 +13,56 @@
  *  charged in accordance with the standard ICEPAY tariffs.
  * 
  */
+
 class Icepay_IceCore_Model_Mysql4_IceCore extends Mage_Core_Model_Mysql4_Abstract {
 
     protected $modules = null;
 
-    public function _construct()
-    {
+    public function _construct() {
         // Note that the basicgateway_id refers to the key field in the database table.
         $this->_init('icecore/icecore', 'icecore_id');
     }
 
-    public function getModules()
-    {
+    public function getModules() {
+
         $modules = array();
 
         $mod_namespace = $this->getModuleData("title");
 
-        foreach ($mod_namespace as $module) {
+        foreach ($mod_namespace as $module){
+            
+            
             try {
-                $class = sprintf("Icepay_Ice%s_Helper_Data", $module["value"]);
-                if (class_exists($class)) {
+                $class = sprintf("Icepay_Ice%s_Helper_Data",$module["value"]);
+                if (class_exists($class)){
                     $helper = new $class();
                     array_push($modules, array(
-                        'id' => $helper->id,
-                        'name' => $helper->title,
-                        'compatible' => sprintf("Magento %s - %s", $helper->compatibility_oldest_version, $helper->compatibility_latest_version),
-                        'compatibleFrom' => $helper->compatibility_oldest_version,
-                        'compatibleTo' => $helper->compatibility_latest_version,
-                        'active' => $this->getModuleConfiguration("active", $helper->section),
-                        'serial' => $this->getModuleConfiguration("serial", $helper->section),
-                        'serialreq' => $helper->serial_required,
-                        'version' => $helper->version,
-                        'fingerprint' => $helper->fingerprint,
-                        'namespace' => $helper->section
+                        'id'                => $helper->id,
+                        'name'              => $helper->title,
+                        'compatible'        => sprintf("Magento %s - %s", $helper->compatibility_oldest_version, $helper->compatibility_latest_version),
+                        'compatibleFrom'    => $helper->compatibility_oldest_version,
+                        'compatibleTo'      => $helper->compatibility_latest_version,
+                        'active'            => $this->getModuleConfiguration("active", $helper->section),
+                        'serial'            => $this->getModuleConfiguration("serial", $helper->section),
+                        'serialreq'         => $helper->serial_required,
+                        'version'           => $helper->version,
+                        'fingerprint'       => $helper->fingerprint,
+                        'namespace'         => $helper->section
                     ));
                 }
+
             } catch (Exception $e) {
                 Mage::helper("icecore")->log($e->getMessage());
-            };
+            };            
         }
         return $modules;
     }
 
-    public function isActive($namespace)
-    {
-        return ($this->getModuleConfiguration("active", $namespace) == "1");
+    public function isActive($namespace){
+        return ($this->getModuleConfiguration("active", $namespace) == "1")?true:false;
     }
 
-    public function getModulesConfiguration()
-    {
+    public function getModulesConfiguration() {
         $moduleData = $this->getModules();
 
         for ($i = 0; $i < count($moduleData); $i++) {
@@ -72,70 +73,58 @@ class Icepay_IceCore_Model_Mysql4_IceCore extends Mage_Core_Model_Mysql4_Abstrac
         return $moduleData;
     }
 
-    public function getModuleData($unique = "title")
-    {
+    public function getModuleData($unique = "title") {
         $conn = $this->_getReadAdapter();
         $select = $conn
-                ->select()
-                ->from($this->getTable('core/config_data'), array('scope', 'scope_id', 'path', 'value'))
-                ->where(new Zend_Db_Expr("path LIKE 'iceadvanced/module/" . $unique . "'"))
-                ->order('path');
+                        ->select()
+                        ->from($this->getTable('core/config_data'), array('scope', 'scope_id', 'path', 'value'))
+                        ->where(new Zend_Db_Expr("path LIKE 'ice%module/" . $unique . "'"))
+                        ->order('path');
         $data = $conn->fetchAll($select);
-
+        
         return $data;
     }
 
-    public function getModuleConfiguration($config = "active", $namespace = "icecore")
-    {
+    public function getModuleConfiguration($config = "active", $namespace = "icecore") {
         $conn = $this->_getReadAdapter();
         $select = $conn
-                ->select()
-                ->from($this->getTable('core/config_data'), array('scope', 'scope_id', 'path', 'value'))
-                ->where(new Zend_Db_Expr("path = 'icecore/" . $namespace . "/" . $config . "'"));
+                        ->select()
+                        ->from($this->getTable('core/config_data'), array('scope', 'scope_id', 'path', 'value'))
+                        ->where(new Zend_Db_Expr("path = 'icecore/" . $namespace . "/" . $config . "'"));
         $data = $conn->fetchRow($select);
         return $data["value"];
     }
 
-    protected function getAuthID()
-    {
-        if ($this->modules == null)
-            $this->modules = $this->getModules();
+    protected function getAuthID() {
+        if($this->modules == null) $this->modules = $this->getModules();
         $str = "";
-        foreach ($this->modules as $module) {
-            if ($module["serialreq"] == "1" && $module["active"] == "1")
-                $str.= $module["id"];
+        foreach($this->modules as $module){
+            if ($module["serialreq"] == "1" && $module["active"] == "1") $str.= $module["id"];
         }
 
         return $str;
     }
 
-    public function getAuthKey($storeID = 0)
-    {
-        if ($this->modules == null)
-            $this->modules = $this->getModules();
+    public function getAuthKey($storeID = 0) {
+        if($this->modules == null) $this->modules = $this->getModules();
         $arr = array();
-        foreach ($this->modules as $module) {
-            if ($module["serialreq"] == "1" && $module["active"] == "1") {
-                array_push($arr, sprintf("[%s,%s,%s]", trim($module["id"]), trim($module["fingerprint"]), trim($module["serial"])));
+        foreach($this->modules as $module){
+            if ($module["serialreq"] == "1" && $module["active"] == "1"){
+                array_push($arr,sprintf("[%s,%s,%s]",trim($module["id"]),trim($module["fingerprint"]),trim($module["serial"])));
             }
         }
-        $str = sprintf("%s,[%s]", Mage::helper('icecore')->getMerchantIDForStore($storeID), implode(",", $arr));
+        $str = sprintf("%s,[%s]",Mage::helper('icecore')->getMerchantIDForStore($storeID),implode(",",$arr));       
         return sha1($str);
     }
 
     /* @sales_order_payment_place_end event */
+    public function savePayment(Varien_Event_Observer $observer) {
 
-    public function savePayment(Varien_Event_Observer $observer)
-    {
         $payment = $observer->getPayment();
         $order = $payment->getOrder();
         $pmName = $payment->getMethodInstance()->getCode();
 
-        $param = Mage::app()->getFrontController()->getRequest()->getParam('payment');        
-       
-        $paymentMethod = (isset($param[$pmName . '_paymentmethod'])) ? $param[$pmName . '_paymentmethod'] : $param['method'];
-        $issuer = isset($param[$pmName . '_issuer']) ? $param[$pmName . '_issuer'] : '0';
-        
+        $param = Mage::app()->getFrontController()->getRequest()->getParam('payment');
         $country = (isset($param[$pmName . '_country'])) ? $param[$pmName . '_country'] : $order->getBillingAddress()->getCountryId();
         if ($country == "00")
             $country = $order->getBillingAddress()->getCountryId();
@@ -143,18 +132,20 @@ class Icepay_IceCore_Model_Mysql4_IceCore extends Mage_Core_Model_Mysql4_Abstrac
         $ice_payment = array(
             'ic_merchantid' => Mage::helper('icecore')->getMerchantIDForStore($order->getStore()->getId()),
             'ic_currency' => $order->getOrderCurrencyCode(),
-            'ic_amount' => Mage::helper('icecore')->formatTotal($order->getGrandTotal()),
+            'ic_amount' => Mage::helper('icecore')->formatTotal($order->getGrandTotal()),//<---- getBaseGrandTotal / getGrandTotal / getQuoteBaseGrandTotal
+            //'ic_description' => Mage::helper('icecore')->getTransactionDescription($order->getStore()->getWebsite()->getName()),
             'ic_description' => Mage::helper('icecore')->getTransactionDescription($order->getRealOrderId()),
             'ic_country' => $country,
             'ic_language' => Mage::helper("icecore")->getLangISO2(),
             'ic_reference' => $order->getRealOrderId(),
-            'ic_paymentmethod' => $paymentMethod,
-            'ic_issuer' => $issuer,
+            'ic_paymentmethod' => $param[$pmName . '_paymentmethod'],
+            'ic_issuer' => $param[$pmName . '_issuer'],
             'ic_orderid' => $order->getRealOrderId(),
             'ic_moduleid' => $this->getAuthID(),
             'ic_authkey' => $this->getAuthKey($order->getStore()->getId())
         );
-        
+
+
         $data = array(
             'order_id' => $order->getRealOrderId(),
             'model' => $pmName,
@@ -168,22 +159,21 @@ class Icepay_IceCore_Model_Mysql4_IceCore extends Mage_Core_Model_Mysql4_Abstrac
         $this->_getWriteAdapter()->insert($this->getTable('icepay_transactions'), $data);
     }
 
-    public function loadPaymentByID($id)
-    {
+    public function loadPaymentByID($id) {
         $conn = $this->_getReadAdapter();
         $select = $conn
-                ->select()
-                ->from($this->getTable('icepay_transactions'), array('transaction_data', 'transaction_id', 'status', 'store_id', 'model', 'order_id'))
-                ->where(new Zend_Db_Expr("order_id = '" . $id . "'"));
+                        ->select()
+                        ->from($this->getTable('icepay_transactions'), array('transaction_data', 'status', 'store_id', 'model', 'order_id'))
+                        ->where(new Zend_Db_Expr("order_id = '" . $id . "'"));
         $data = $conn->fetchRow($select);
         return $data;
     }
 
-    public function changeStatus(array $data)
-    {
+    public function changeStatus(array $data) {
         $where = $this->_getReadAdapter()->quoteInto('order_id = ?', $data["order_id"]);
         $this->_getWriteAdapter()->update(
-                $this->getTable('icepay_transactions'), $data, $where);
+                $this->getTable('icepay_transactions'),
+                $data, $where);
     }
 
 }
