@@ -547,7 +547,7 @@ class Icepay_Order {
     private $_addressesNode;
     private $_productsNode;
     private static $instance;
-    private $_debug = true;
+    private $_debug = false;
     public $_data = Array();
 
     public function setData($id, $obj) {
