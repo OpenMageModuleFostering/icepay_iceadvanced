@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Icepay_IceAdvanced",
+    "name": "OpenMageModuleFostering\/Icepay_IceAdvanced",
     "type": "magento-module",
     "license": "Commercial",
     "homepage": "",
     "description": "Enables payments using payment service provider ICEPAY.",
     "authors": [
-    {
-        "name": "ICEPAY",
-        "email": "info@icepay.com"
-    }
-],
+        {
+            "name": "ICEPAY",
+            "email": "info@icepay.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
